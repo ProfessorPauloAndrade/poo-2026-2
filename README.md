@@ -9,8 +9,9 @@ Materiais destinados aos estudantes da disciplina de Programação Orientada a O
 | 1 | Apresentação, POO e história do Java | [Abrir](encontros/encontro-01/) |
 | 2 | Transição de C para Java | [Abrir](encontros/encontro-02/) |
 | 3 | Controle de fluxo e métodos | [Abrir](encontros/encontro-03/) |
+| 4 | Projeto 1: CRUD procedural em memória | [Abrir](encontros/encontro-04/) |
 
-Cada pasta contém a apresentação em Markdown, o material do aluno e os exemplos necessários para a prática. O deck completo do Encontro 3 também está disponível no [Gamma](https://gamma.app/docs/op065whc053zb46).
+Cada pasta contém a apresentação em Markdown, o material do aluno e os exemplos necessários para a prática. Os decks completos dos encontros 3 e 4 também estão disponíveis no Gamma: [Encontro 3](https://gamma.app/docs/op065whc053zb46) e [Encontro 4](https://gamma.app/docs/i4qgseeq50ks4q6).
 
 ## Requisitos gerais
 
