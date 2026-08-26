@@ -12,8 +12,9 @@ Materiais destinados aos estudantes da disciplina de Programação Orientada a O
 | 4 | Projeto 1: CRUD procedural em memória | [Abrir](encontros/encontro-04/) |
 | 5 | Projeto 1: classes e objetos | [Abrir](encontros/encontro-05/) |
 | 6 | Projeto 1: construtores e encapsulamento | [Abrir](encontros/encontro-06/) |
+| 7 | Projeto 2: relacionamentos e responsabilidades | [Abrir](encontros/encontro-07/) |
 
-Cada pasta contém a apresentação em Markdown, o material do aluno e os exemplos necessários para a prática. Os decks completos dos encontros 3, 4, 5 e 6 também estão disponíveis no Gamma: [Encontro 3](https://gamma.app/docs/op065whc053zb46), [Encontro 4](https://gamma.app/docs/i4qgseeq50ks4q6), [Encontro 5](https://gamma.app/docs/qx9gqdxt3pdhgva) e [Encontro 6](https://gamma.app/docs/fpljkrz226ib3b7).
+Cada pasta contém a apresentação em Markdown, o material do aluno e os exemplos necessários para a prática. Os decks completos dos encontros 3 a 7 também estão disponíveis no Gamma: [Encontro 3](https://gamma.app/docs/op065whc053zb46), [Encontro 4](https://gamma.app/docs/i4qgseeq50ks4q6), [Encontro 5](https://gamma.app/docs/qx9gqdxt3pdhgva), [Encontro 6](https://gamma.app/docs/fpljkrz226ib3b7) e [Encontro 7](https://gamma.app/docs/43g36y8j2198vph).
 
 ## Requisitos gerais
 
