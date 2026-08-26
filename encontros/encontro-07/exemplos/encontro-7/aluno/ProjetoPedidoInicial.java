@@ -18,22 +18,20 @@ class ItemPedido {
     private final Produto produto;
     private int quantidade;
     ItemPedido(Produto produto, int quantidade) {
-        // TODO: guardar a referencia do produto e a quantidade com this.
+        // O vinculo por referencia fica visivel desde o inicio para ser rastreado.
         this.produto = produto;
         this.quantidade = quantidade;
     }
     boolean alterarQuantidade(int novaQuantidade) {
         // TODO: recusar valor menor ou igual a zero e preservar a quantidade anterior.
-        if (novaQuantidade <= 0) return false;
-        quantidade = novaQuantidade;
-        return true;
+        return false;
     }
     double calcularSubtotal() {
         // TODO: consultar preco do produto e multiplicar pela quantidade.
-        return produto.getPreco() * quantidade;
+        return 0.0;
     }
     void exibir() {
-        // TODO: mostrar codigo, preco, quantidade e subtotal.
+        // A exibicao pronta ajuda a observar o efeito das implementacoes.
         System.out.printf("Produto: %d | Preco: %.2f | Quantidade: %d | Subtotal: %.2f%n",
                 produto.getCodigo(), produto.getPreco(), quantidade, calcularSubtotal());
     }
@@ -44,16 +42,16 @@ class Pedido {
     private final ItemPedido item;
     Pedido(int numero, Produto produto, int quantidade) {
         this.numero = numero;
-        // TODO: criar internamente o ItemPedido. Pedido controla seu item.
+        // A criacao interna evidencia a composicao desta primeira versao.
         this.item = new ItemPedido(produto, quantidade);
     }
     boolean alterarQuantidade(int novaQuantidade) {
         // TODO: delegar a alteracao para ItemPedido.
-        return item.alterarQuantidade(novaQuantidade);
+        return false;
     }
     double calcularTotal() {
         // TODO: delegar o calculo para o item.
-        return item.calcularSubtotal();
+        return 0.0;
     }
     void exibir() {
         System.out.println("Pedido: " + numero);

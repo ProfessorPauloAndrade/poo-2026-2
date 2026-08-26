@@ -3,7 +3,7 @@
 Neste encontro, iniciaremos um pedido formado por objetos que colaboram. `ItemPedido` usa um `Produto` já existente; `Pedido` cria e controla seu item.
 
 1. Leia o [material do aluno](MATERIAL_ALUNO.md).
-2. Consulte a [apresentação](APRESENTACAO.md) ou o [deck no Gamma](https://gamma.app/docs/37e05annea8c0lx).
+2. Consulte a [apresentação](APRESENTACAO.md) ou o [deck revisado no Gamma](https://gamma.app/docs/og9qgeravn7mbx2).
 3. Copie [ProjetoPedidoInicial.java](exemplos/encontro-7/aluno/ProjetoPedidoInicial.java).
 4. Preserve as responsabilidades de cada classe enquanto completa o exemplo.
 

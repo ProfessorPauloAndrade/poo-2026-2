@@ -1,70 +1,117 @@
-# 1. Encontro 7 — Relacionamentos e responsabilidades
+# Encontro 7 — Fazendo objetos colaborarem sem espalhar regras
 
-**Projeto 2:** por que objetos precisam colaborar.
+**Projeto 2: pedidos, relacionamentos e responsabilidades**
 
-# 2. Antes do código: o que é o Projeto 2?
+---
 
-O Projeto 2 é um programa Java construído em etapas para representar pedidos de uma pequena cafeteria apenas em memória. Ele não é um sistema comercial completo: é um laboratório para aprender como objetos se relacionam e dividem responsabilidades.
+# 2. Por que um objeto isolado já não basta?
 
-# 3. Qual problema o projeto representa?
+No Projeto 1, `Produto` passou a controlar código e preço. Agora precisamos representar uma compra: além do produto, aparecem quantidade, número do pedido, subtotal e total.
 
-Uma cafeteria possui produtos. Ao comprar três cafés, surgem dados que não pertencem apenas ao café: quantidade da compra, número do pedido e total.
+O desafio desta aula é distribuir esses dados e regras entre objetos que colaboram, sem devolver tudo ao `main`.
 
-# 4. O vocabulário do problema
+---
 
-- `Produto`: algo que a cafeteria oferece para venda.
-- `ItemPedido`: um produto escolhido em uma quantidade específica.
-- `Pedido`: uma compra identificada por número e formada por seus itens.
+# 3. De onde partimos — e o que muda hoje
 
-Essas palavras descrevem o problema antes de se tornarem classes Java.
+**No Encontro 6:** construtor, `this`, atributos `private`, getters e alteração controlada de preço.
 
-# 5. Uma história concreta
+**No Encontro 7:** uma classe passa a guardar referência para outra; cada regra será colocada no objeto que reúne os dados necessários.
 
-O café 101 custa 5.50. Ana abre o pedido 10 e compra três cafés. A compra deve mostrar produto, preço, quantidade, subtotal e total 16.50.
+Continuamos usando construtores e encapsulamento. A novidade é a colaboração entre objetos.
 
-# 6. Por que Produto não guarda quantidade?
+---
 
-O mesmo café pode estar em duas compras diferentes: pedido 10 com três unidades e pedido 11 com uma. Quantidade é uma propriedade do café dentro de uma compra, não do catálogo.
+# 4. A pergunta que orienta o encontro
 
-# 7. A classe que falta
+> Quando uma compra envolve produto, quantidade e pedido, qual objeto deve guardar cada dado e executar cada regra?
 
-`ItemPedido` representa “este Produto nesta quantidade”. Ele liga o produto à quantidade específica e calcula o valor dessa linha da compra.
+Ao final, você deverá conseguir:
 
-# 8. O papel de Pedido
+- reconhecer associação e composição no problema, no código e no diagrama;
+- justificar as responsabilidades de `Produto`, `ItemPedido`, `Pedido` e `main`;
+- prever o efeito de alterar preço ou quantidade antes de executar o programa.
 
-Pedido representa a compra como um todo: guarda seu número, cria e controla o item desta versão, pede o subtotal ao item e apresenta o total ao usuário.
+---
 
-# 9. O que o programa fará hoje?
+# 5. Nosso percurso e o produto final
+
+1. Narrar a compra e separar seus dados.
+2. Descobrir a classe que falta.
+3. Conectar objetos por referência.
+4. Distinguir associação de composição.
+5. Ler o diagrama e traduzi-lo para Java.
+6. Completar e testar o programa.
+
+**Produto:** programa executável que mostra 16.50, recalcula 18.00 após mudar o preço e chega a 24.00 após mudar a quantidade.
+
+---
+
+# 6. Uma compra concreta na cafeteria
+
+Ana faz o pedido **10** em uma pequena cafeteria. Ela escolhe o produto **101**, um café que custa **5.50**, e pede **3 unidades**.
+
+O programa deve exibir:
 
 ```text
-1 - exibir o pedido
-2 - alterar o preço do café
-3 - alterar a quantidade comprada
-0 - encerrar
+Pedido: 10
+Produto: 101 | Preço: 5.50 | Quantidade: 3 | Subtotal: 16.50
+Total: 16.50
 ```
 
-# 10. Por que começar com um único item?
+---
 
-Um pedido real possui vários itens. Hoje há somente um para tornar os vínculos entre as três classes visíveis. No próximo encontro, `ArrayList` permitirá vários itens.
+# 7. O vocabulário antes das classes
 
-# 11. O que fica fora do recorte?
+- **Produto:** item do catálogo da cafeteria; possui código e preço atual.
+- **Item do pedido:** participação de um produto em uma compra, com uma quantidade específica.
+- **Pedido:** compra identificada por número; nesta primeira versão, contém um item.
+- **Subtotal:** preço atual do produto multiplicado pela quantidade daquele item.
+- **Total:** soma dos subtotais; hoje coincide com o subtotal porque há apenas um item.
 
-Não construiremos banco de dados, tela gráfica, cliente ou pagamento. Esses temas não ajudam a observar relacionamentos neste momento.
+---
 
-# 12. Como o Projeto 2 evoluirá?
+# 8. Separe os fatos da compra
 
-- Encontro 7: um pedido, um item e um produto; relações e responsabilidades.
-- Encontro 8: `ArrayList` e CRUD em coleção.
-- Encontro 9: relações 1:1 e 1:N.
-- Encontro 10: validações, `toString`, comparação e fechamento.
+| Informação | Valor no caso de Ana | Pertence a |
+|---|---:|---|
+| código do café | 101 | produto do catálogo |
+| preço atual | 5.50 | produto do catálogo |
+| quantidade comprada | 3 | item desta compra |
+| número | 10 | pedido |
+| subtotal | 16.50 | calculado pelo item |
+| total | 16.50 | apresentado pelo pedido |
 
-# 13. Produto esperado hoje
+A tabela já sugere que um único objeto não deve controlar tudo.
 
-Programa executável que recalcula o total quando preço ou quantidade mudam. Cada regra deve ficar na classe que possui os dados necessários.
+---
 
-# 14. Do problema para os objetos
+# 9. Por que quantidade não pertence a Produto?
 
-# 15. A tentativa procedural
+O mesmo café pode aparecer simultaneamente em compras diferentes:
+
+```text
+Pedido 10 — 3 cafés
+Pedido 11 — 1 café
+```
+
+Se `Produto` guardasse uma única quantidade, qual pedido ela representaria? Quantidade descreve o produto **dentro de uma compra**, não o produto no catálogo.
+
+---
+
+# 10. O recorte didático desta versão
+
+Um pedido real possui vários itens. Hoje usamos **um pedido, um item e um produto** para enxergar cada vínculo sem misturá-lo com coleções.
+
+Ficam fora desta aula: `ArrayList`, vários itens, banco de dados, interface gráfica, cliente e pagamento.
+
+No próximo encontro, a limitação de um único item motivará o uso de `ArrayList`.
+
+---
+
+# 11. Primeiro problema: dados e regras concentrados em main
+
+Uma solução procedural mínima poderia ser:
 
 ```java
 double preco = 5.50;
@@ -72,241 +119,426 @@ int quantidade = 3;
 double total = preco * quantidade;
 ```
 
-O problema não é a conta; é `main` concentrar dados e regras de objetos diferentes.
+A multiplicação está correta. A organização não mostra quem representa o produto, a compra ou a regra de alteração de cada valor.
 
-# 16. O que são relacionamentos?
+---
 
-Relacionamento é a ligação entre objetos quando um precisa guardar, usar ou pedir uma ação a outro para cumprir sua tarefa. Em Java, aparece como uma referência em um atributo.
+# 12. O problema aparece quando o sistema evolui
 
-# 17. O que eles resolvem?
+Se `main` concentra tudo, ele precisa:
 
-Evitam copiar e espalhar dados. `ItemPedido` consulta o preço atual em `Produto`; assim, uma mudança de preço é feita em uma única fonte.
+- lembrar quais valores pertencem ao catálogo e quais pertencem à compra;
+- repetir a fórmula sempre que precisar do total;
+- validar preço e quantidade em lugares diferentes;
+- manter cópias sincronizadas quando o preço mudar.
 
-# 18. O que são responsabilidades?
+Queremos preservar o cálculo, mas redistribuir dados e regras.
 
-Responsabilidade é aquilo que uma classe deve saber ou fazer porque possui os dados necessários. Ela define onde uma regra será escrita, testada e mantida.
+---
 
-# 19. Composição: por que existe?
+# 13. A pergunta de responsabilidade
 
-Composição define quem cria e controla uma parte. Pedido cria seu ItemPedido; `main` não deixa o item solto sem saber a qual pedido pertence.
+Para decidir onde uma ação deve ficar, faça duas perguntas:
 
-# 20. O programa em execução
+1. **Quem possui os dados necessários?**
+2. **Quem deve proteger a regra que altera esses dados?**
 
-O menu prova que a estrutura não é só desenho: opção 1 exibe 16.50; preço 6.00 altera o total para 18.00; quantidade 4 altera o total para 24.00.
+Exemplo: só `ItemPedido` reúne o produto escolhido e a quantidade comprada. Portanto, ele é o candidato natural para calcular o subtotal.
 
-# 21. Os conceitos em prática
+---
 
-As próximas seções mostram associação, responsabilidade, composição, UML, código e testes do programa.
+# 14. A classe que falta: ItemPedido
 
-# 3. O que já sabemos
+`ItemPedido` representa a frase:
 
-`Produto` já controla código e preço, mas ainda não representa uma compra.
+> “Este `Produto`, nesta quantidade, dentro de uma compra.”
 
-# 4. Situação de partida
+Ele não copia o preço. Guarda uma referência para o produto, guarda a quantidade e calcula o subtotal consultando o preço atual.
 
-Uma compra tem produto, preço, quantidade, número do pedido e total. Pergunta: todos esses dados pertencem ao mesmo objeto?
+---
 
-# 5. A solução que parece simples
+# 15. Mapa inicial de responsabilidades
 
-```java
-double preco = 5.50;
-int quantidade = 3;
-double total = preco * quantidade;
-```
+| Classe | Sabe | Faz |
+|---|---|---|
+| `Produto` | código e preço | valida alteração de preço |
+| `ItemPedido` | produto e quantidade | valida quantidade e calcula subtotal |
+| `Pedido` | número e item | cria/controla o item e delega operações |
+| `main` | opções digitadas | coordena o menu e chama métodos |
 
-# 6. Qual problema essa solução cria?
+`main` coordena; ele não reimplementa as regras dos objetos.
 
-O `main` concentra dados e regras de objetos diferentes. O preço pode ser copiado, desatualizado e a fórmula pode ser repetida.
+![Mapa visual das responsabilidades](https://raw.githubusercontent.com/ProfessorPauloAndrade/poo-2026-2/main/encontros/encontro-07/assets/imagens/responsabilidades-infografico.png)
 
-# 7. Do produto isolado à compra
+---
 
-# 8. Definição: relacionamento entre objetos
+# 16. Relacionamento: quando um objeto precisa de outro
 
-Um relacionamento existe quando um objeto guarda, usa ou pede uma ação a outro objeto para cumprir sua tarefa. No código, ele aparece como referência.
+Um relacionamento existe quando um objeto precisa **conhecer, usar ou pedir uma ação** a outro para cumprir sua responsabilidade.
 
-# 9. Que problema um relacionamento resolve?
-
-Evita valores ligados, porém soltos e duplicados. O item consulta o preço atual do produto em vez de guardar uma cópia.
-
-# 10. Referência: o vínculo no código
+Em Java, o vínculo costuma aparecer como um atributo cujo tipo é outra classe:
 
 ```java
 private final Produto produto;
 ```
 
-Esse atributo aponta para um Produto existente; não é uma cópia do produto nem apenas seu código.
+---
 
-# 11. Associação: um objeto usa outro
+# 17. Referência não é cópia
 
-![Associação](assets/imagens/associacao-infografico.png)
-
-Associação é o vínculo em que um objeto usa outro que pode existir independentemente.
-
-# 12. Associação no projeto
-
-`ItemPedido` usa um `Produto`. Se o pedido for removido, o produto continua existindo. Alterar o preço do produto atualiza o subtotal consultado pelo item.
-
-# 13. Diagrama de objetos: associação em execução
-
-![Diagrama de objetos](assets/diagramas/01-objetos-associacao.svg)
-
-`item.produto` aponta para o mesmo objeto `cafe`.
-
-# 14. Construindo o vínculo passo a passo
-
-```java
-Produto cafe = new Produto(101, 5.50);
-ItemPedido item = new ItemPedido(cafe, 3);
-```
-
-O construtor recebe a referência e a guarda em `this.produto`.
-
-# 15. O construtor não copia o produto
-
-```java
-this.produto = produto;
-```
-
-Os dois lados referem-se ao mesmo objeto Produto.
-
-# 16. Efeito observável da associação
-
-Depois de `cafe.alterarPreco(6.00)`, `item.calcularSubtotal()` passa de 16.50 para 18.00 sem alterar ItemPedido.
-
-# 17. Definição: responsabilidade
-
-Responsabilidade é aquilo que uma classe deve conhecer ou fazer porque possui os dados necessários para isso.
-
-# 18. Responsabilidades em uma compra
-
-![Responsabilidades](assets/imagens/responsabilidades-infografico.png)
-
-# 19. Distribuição das responsabilidades
-
-- Produto: código, preço e validação de preço.
-- ItemPedido: produto, quantidade, subtotal e validação de quantidade.
-- Pedido: número, criação do item e delegação.
-- main: cria objetos, lê opções e pede ações.
-
-# 20. Onde fica a fórmula?
-
-```java
-return produto.getPreco() * quantidade;
-```
-
-`ItemPedido` possui os dois dados; por isso calcula subtotal.
-
-# 21. Uma comparação importante
-
-Quantidade não pertence a Produto: o mesmo café pode aparecer em quantidades diferentes. Total não pertence a `main`: a fórmula fica distante dos dados.
-
-# 22. Composição: todo e parte
-
-# 23. Definição: composição
-
-Composição é relação de todo e parte quando o todo cria e controla uma parte que só faz sentido dentro dele.
-
-# 24. Que problema a composição resolve?
-
-Deixa claro quem cria e mantém a parte. `main` não monta um item solto; Pedido cria seu próprio ItemPedido.
-
-# 25. Composição no pedido
-
-![Composição](assets/imagens/composicao-infografico.png)
-
-# 26. Associação e composição
-
-| Associação | Composição |
-|---|---|
-| ItemPedido usa Produto | Pedido controla ItemPedido |
-| Produto existe sem item | Item pertence ao pedido |
-| atributo de referência | criação interna |
-
-# 27. Código da composição
-
-```java
-this.item = new ItemPedido(produto, quantidade);
-```
-
-Pedido cria a parte que controla.
-
-# 28. Delegar preserva responsabilidades
-
-```java
-return item.calcularSubtotal();
-```
-
-Pedido pede o total ao item em vez de repetir a fórmula.
-
-# 29. Do diagrama ao código e à execução
-
-# 30. Diagrama de classes UML simplificado
-
-![Diagrama UML](assets/diagramas/02-uml-classes.svg)
-
-# 31. Como ler o diagrama
-
-Nome, atributos, operações, `-` privado, `+` operação pública, losango preenchido para composição, seta para associação e multiplicidade 1 neste recorte.
-
-# 32. Do símbolo para Java
-
-`ItemPedido ───► Produto` vira `private final Produto produto;`. `Pedido ◆── ItemPedido` vira `new ItemPedido(...)` dentro de Pedido.
-
-# 33. O programa que vamos executar
+Imagine um único objeto `cafe`, com código 101 e preço 5.50. O atributo `item.produto` aponta para esse mesmo objeto.
 
 ```text
-1-Exibir pedido 2-Alterar preco 3-Alterar quantidade 0-Sair
+item : ItemPedido ─────────► cafe : Produto
+quantidade = 3               codigo = 101
+                             preco = 5.50
 ```
 
-Há um único item nesta aula; vários itens entram com `ArrayList` no próximo encontro.
+Não existe um segundo café nem um segundo preço dentro do item.
 
-# 34. Ponto de partida em main
+---
+
+# 18. Construindo o vínculo em três passos
+
+```java
+Produto cafe = new Produto(101, 5.50);     // 1. cria o produto
+ItemPedido item = new ItemPedido(cafe, 3); // 2. passa a referência
+```
+
+Dentro do construtor:
+
+```java
+this.produto = produto; // 3. guarda a referência recebida
+this.quantidade = quantidade;
+```
+
+`this.produto` é o atributo; `produto` é o parâmetro.
+
+---
+
+# 19. Preveja antes de executar
+
+Estado inicial: preço 5.50 e quantidade 3, portanto subtotal 16.50.
+
+Depois executamos:
+
+```java
+cafe.alterarPreco(6.00);
+```
+
+O que `item.calcularSubtotal()` devolverá?
+
+**Resposta após a discussão:** 18.00, porque o item consulta o mesmo objeto `cafe`, agora com preço 6.00.
+
+---
+
+# 20. Associação: usar um objeto independente
+
+**Associação** é o relacionamento em que um objeto usa outro que pode existir independentemente.
+
+No projeto:
+
+```text
+ItemPedido ─────────► Produto
+```
+
+O produto já existia antes do item e pode continuar no catálogo depois que o pedido deixar de existir.
+
+![ItemPedido aponta para o mesmo objeto Produto](https://raw.githubusercontent.com/ProfessorPauloAndrade/poo-2026-2/main/encontros/encontro-07/assets/diagramas/01-objetos-associacao.svg)
+
+---
+
+# 21. Associação: exemplo e não exemplo
+
+**É associação:** `ItemPedido` guarda `Produto produto` e consulta `produto.getPreco()`.
+
+**Não é a solução desejada:** `ItemPedido` guarda somente `double precoCopiado`.
+
+A cópia poderia ficar desatualizada. A referência mantém uma única fonte de verdade para o preço.
+
+---
+
+# 22. Verificação rápida da associação
+
+Complete oralmente:
+
+1. O objeto independente é __________.
+2. O objeto que o utiliza é __________.
+3. O atributo que materializa o vínculo é __________.
+4. A evidência de que não houve cópia é o total mudar de 16.50 para __________ após alterar o preço.
+
+Registre as quatro respostas antes de avançar. A correção será discutida coletivamente.
+
+---
+
+# 23. Segundo problema: quem cria o item?
+
+Poderíamos deixar `main` criar objetos separados:
+
+```java
+ItemPedido item = new ItemPedido(cafe, 3);
+Pedido pedido = new Pedido(10, item);
+```
+
+Mas, nesta versão, o item só existe para formar aquele pedido. Queremos deixar explícito quem cria e controla essa parte.
+
+---
+
+# 24. Composição: o todo controla a parte
+
+**Composição** é uma relação de todo e parte em que o todo cria e controla uma parte que só faz sentido dentro dele.
+
+No recorte do projeto:
+
+```text
+Pedido ◆──────── ItemPedido
+```
+
+`Pedido` é o todo; `ItemPedido` é a parte criada por ele.
+
+![Composição entre Pedido e ItemPedido](https://raw.githubusercontent.com/ProfessorPauloAndrade/poo-2026-2/main/encontros/encontro-07/assets/imagens/composicao-infografico.png)
+
+---
+
+# 25. A composição aparece na criação interna
+
+```java
+class Pedido {
+    private final ItemPedido item;
+
+    Pedido(int numero, Produto produto, int quantidade) {
+        this.numero = numero;
+        this.item = new ItemPedido(produto, quantidade);
+    }
+}
+```
+
+O construtor recebe os dados necessários e o próprio `Pedido` cria sua parte.
+
+---
+
+# 26. Associação e composição lado a lado
+
+| Pergunta | Associação | Composição |
+|---|---|---|
+| vínculo no projeto | `ItemPedido` usa `Produto` | `Pedido` controla `ItemPedido` |
+| independência | produto existe sem o item | item pertence ao pedido neste recorte |
+| evidência no código | atributo `Produto produto` | `new ItemPedido(...)` dentro de `Pedido` |
+| ideia central | uso de objeto existente | criação e controle da parte |
+
+Não classifique apenas pelo desenho: explique o ciclo de vida e o controle.
+
+---
+
+# 27. Delegação: pedir a ação ao objeto certo
+
+`Pedido` precisa fornecer o total, mas não precisa repetir a fórmula:
+
+```java
+double calcularTotal() {
+    return item.calcularSubtotal();
+}
+```
+
+**Delegar** é chamar a operação do objeto que já possui os dados e a regra necessários.
+
+---
+
+# 28. Por que Pedido não multiplica preço por quantidade?
+
+Para multiplicar diretamente, `Pedido` precisaria conhecer detalhes internos de `ItemPedido` e de `Produto`.
+
+Ao delegar:
+
+- `ItemPedido` continua responsável pelo subtotal;
+- `Pedido` oferece uma operação coerente com a compra;
+- a fórmula fica em um único lugar;
+- o encapsulamento é preservado.
+
+---
+
+# 29. Uma ação atravessa três objetos
+
+Quando o usuário altera a quantidade:
+
+```text
+main
+  └─ chama pedido.alterarQuantidade(4)
+       └─ Pedido delega para item.alterarQuantidade(4)
+            └─ ItemPedido valida e altera seu próprio estado
+```
+
+Cada objeto participa apenas com a responsabilidade que lhe pertence.
+
+---
+
+# 30. Antes do UML: o que precisamos representar
+
+O diagrama deve responder visualmente:
+
+- quais classes existem;
+- quais dados e operações principais cada uma possui;
+- quem usa um objeto independente;
+- quem cria e controla uma parte;
+- quantos objetos participam de cada vínculo nesta versão.
+
+O diagrama resume decisões já compreendidas; ele não substitui a explicação do caso.
+
+---
+
+# 31. Diagrama de classes não é diagrama de objetos
+
+**Diagrama de classes:** descreve os tipos `Produto`, `ItemPedido` e `Pedido`, seus atributos, métodos e relações.
+
+**Diagrama de objetos:** mostra instâncias em execução, como `cafe : Produto` e `pedido : Pedido`, com valores concretos.
+
+Hoje usamos o diagrama de classes para apoiar a implementação e o de objetos para compreender a referência compartilhada.
+
+---
+
+# 32. Como ler uma caixa UML
+
+```text
+┌─────────────────────────────┐
+│ ItemPedido                  │  nome da classe
+├─────────────────────────────┤
+│ - produto: Produto          │  atributos privados
+│ - quantidade: int           │
+├─────────────────────────────┤
+│ + calcularSubtotal(): double│  operações disponíveis
+└─────────────────────────────┘
+```
+
+`-` indica privado; `+` indica operação acessível por outras classes.
+
+---
+
+# 33. O diagrama completo desta versão
+
+O diagrama reúne classes, atributos, operações e vínculos. O número `1` registra o recorte: um pedido controla um item, e esse item referencia um produto.
+
+![Diagrama UML completo de Produto, ItemPedido e Pedido](https://raw.githubusercontent.com/ProfessorPauloAndrade/poo-2026-2/main/encontros/encontro-07/assets/diagramas/02-uml-classes.svg)
+
+---
+
+# 34. Traduzindo o diagrama para Java
+
+| Elemento do diagrama | Evidência no código |
+|---|---|
+| `ItemPedido ─► Produto` | `private final Produto produto;` |
+| `Pedido ◆─ ItemPedido` | `this.item = new ItemPedido(...);` |
+| `- quantidade: int` | `private int quantidade;` |
+| `+ calcularSubtotal()` | método chamado por outro objeto |
+| multiplicidade `1` | um atributo guarda uma referência nesta versão |
+
+Diagrama e código devem contar a mesma história.
+
+---
+
+# 35. Fluxo completo de criação e cálculo
+
+```text
+1. main cria cafe : Produto(101, 5.50)
+2. main cria pedido : Pedido(10, cafe, 3)
+3. Pedido cria internamente ItemPedido(cafe, 3)
+4. ItemPedido guarda referência para cafe e quantidade 3
+5. Pedido pede o total ao item
+6. ItemPedido consulta cafe.getPreco() e multiplica por 3
+7. O programa exibe 16.50
+```
+
+---
+
+# 36. Teste 1 — rastreie o estado inicial
 
 ```java
 Produto cafe = new Produto(101, 5.50);
 Pedido pedido = new Pedido(10, cafe, 3);
+pedido.exibir();
 ```
 
-# 35. Fluxo de execução
+**Previsão:** subtotal e total são 16.50.
 
-![Fluxo de execução](assets/imagens/execucao-infografico.png)
+**Por quê?** O item consulta 5.50 no produto e multiplica por sua quantidade 3. Como há um item, o total delegado coincide com o subtotal.
 
-# 36. Fluxo de execução detalhado
+---
 
-![Fluxo detalhado](assets/diagramas/03-execucao-minima.svg)
+# 37. Teste 2 — altere o preço na fonte
 
-# 37. Teste 1: exibir
+```java
+cafe.alterarPreco(6.00);
+pedido.exibir();
+```
 
-Opção 1 exibe produto 101, preço 5.50, quantidade 3, subtotal 16.50 e total 16.50.
+**Previsão:** subtotal e total passam para 18.00.
 
-# 38. Teste 2: alterar preço
+**Trilha:** `Produto` valida e guarda 6.00 → `ItemPedido` consulta o mesmo produto → `Pedido` delega o total ao item.
 
-Opção 2 com 6.00 chama `cafe.alterarPreco(...)`; nova exibição mostra total 18.00.
+---
 
-# 39. Teste 3: alterar quantidade
+# 38. Teste 3 — altere a quantidade por delegação
 
-Opção 3 com 4 chama `pedido.alterarQuantidade(...)`; nova exibição mostra total 24.00.
+```java
+pedido.alterarQuantidade(4);
+pedido.exibir();
+```
 
-# 40. Prática guiada: ItemPedido
+**Previsão:** com preço 6.00 e quantidade 4, o total passa para 24.00.
 
-Complete referência, quantidade, alteração controlada, subtotal e exibição. Compile e teste opção 1.
+**Trilha:** `Pedido` recebe o pedido de alteração → delega para `ItemPedido` → o item valida e guarda 4.
 
-# 41. Prática guiada: Pedido
+---
 
-Complete criação interna, delegação de quantidade, cálculo e exibição. Compile e teste opções 1 e 3.
+# 39. Teste 4 — valores inválidos preservam o estado
 
-# 42. Prática guiada: testes
+Tente preço `0` e quantidade `0`.
 
-Confira 16.50, 18.00 e 24.00. Preço 0 e quantidade 0 devem ser recusados, preservando valores anteriores.
+- `Produto.alterarPreco(0)` devolve `false` e conserva 6.00.
+- `ItemPedido.alterarQuantidade(0)` devolve `false` e conserva 4.
+- uma nova exibição continua mostrando 24.00.
 
-# 43. Erros frequentes
+Informação inválida não deve apagar um estado válido anterior.
 
-Copiar preço para o item; calcular em `main`; colocar quantidade em Produto; criar ItemPedido fora de Pedido; acessar atributo privado diretamente.
+---
 
-# 44. Desafio e critério de conclusão
+# 40. Laboratório — construa em etapas verificáveis
 
-O menu deve funcionar e você deve localizar no código uma associação, uma composição e uma delegação; explicar por que o total não está no `main`.
+Abra `ProjetoPedidoInicial.java` e trabalhe em dupla.
 
-# 45. Síntese e próximo encontro
+1. Localize as três classes e o `main`.
+2. Leia e explique a referência de `ItemPedido` para `Produto`.
+3. Implemente validação e subtotal; confira a exibição do item.
+4. Compile e teste a opção 1: espere 16.50.
+5. Explique a criação interna e complete as delegações em `Pedido`.
+6. Compile e execute a sequência 16.50 → 18.00 → 24.00.
+7. Teste preço e quantidade inválidos.
 
-Relacionamentos conectam objetos; associação usa objeto independente; composição controla parte; responsabilidade fica com os dados e a regra; delegação evita repetição. Próximo: vários itens com `ArrayList`.
+---
+
+# 41. Diagnóstico de erros frequentes
+
+| Sintoma | Verifique |
+|---|---|
+| mudar preço não muda subtotal | o item copiou o preço em vez de guardar `Produto` |
+| `NullPointerException` | a referência `produto` ou `item` não foi inicializada |
+| quantidade 0 foi aceita | a validação não preserva o valor anterior |
+| fórmula repetida em `Pedido` ou `main` | faltou delegar para `ItemPedido` |
+| item criado em `main` | a composição não está explícita no construtor de `Pedido` |
+
+Corrija um problema por vez e repita o menor teste capaz de confirmá-lo.
+
+---
+
+# 42. Síntese, evidência e ponte
+
+Você concluiu quando consegue apontar no código e explicar:
+
+- **associação:** `ItemPedido` usa um `Produto` independente;
+- **composição:** `Pedido` cria e controla seu `ItemPedido`;
+- **responsabilidade:** cada regra fica junto dos dados necessários;
+- **delegação:** `Pedido` pede ao item o cálculo e a alteração;
+- **referência compartilhada:** mudar `cafe` altera o subtotal consultado.
+
+Faça o commit sugerido: `Inicia Projeto 2 com objetos relacionados`.
+
+**Próximo encontro:** trocar o único item por vários itens usando `ArrayList`.
