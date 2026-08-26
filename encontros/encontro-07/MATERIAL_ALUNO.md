@@ -2,15 +2,16 @@
 
 ## Objetivo
 
-Construir um pedido simples em que objetos colaboram sem misturar responsabilidades. `ItemPedido` usa um `Produto`; `Pedido` cria e controla seu `ItemPedido`.
+Construir e executar um pedido interativo. `ItemPedido` usa um `Produto`; `Pedido` cria e controla seu `ItemPedido`. O menu permite observar que preço e quantidade alteram o total por meio da colaboração entre objetos.
 
 ## Roteiro
 
 1. Abra `exemplos/encontro-7/aluno/ProjetoPedidoInicial.java`.
-2. Complete `ItemPedido`: referência para `Produto`, quantidade, subtotal e exibição.
-3. Complete `Pedido`: número, item criado internamente e delegação do total.
-4. Execute com café 101 / 5.50 e quantidade 3.
-5. Altere o preço do mesmo objeto `cafe` para 6.00, preveja e confira o novo total.
+2. Execute o arquivo antes de modificar qualquer linha e use a opção 1 para exibir o pedido inicial.
+3. Complete `ItemPedido`: referência para `Produto`, quantidade, subtotal, exibição e alteração controlada de quantidade.
+4. Complete `Pedido`: número, item criado internamente, delegação de quantidade e delegação do total.
+5. Use a opção 2 para alterar o preço do mesmo objeto `cafe` para 6.00; exiba novamente o pedido.
+6. Use a opção 3 para alterar a quantidade para 4; exiba novamente o pedido.
 
 ## Diagrama de apoio
 
@@ -25,9 +26,11 @@ Pedido ◆── 1 ItemPedido ─── 1 Produto
 
 | Situação | Resultado esperado |
 |---|---|
-| café 101 / 5.50, quantidade 3 | subtotal e total 16.50 |
-| alterar café para 6.00 | subtotal e total 18.00 |
-| exibir pedido | número, código, quantidade, subtotal e total visíveis |
+| opção 1 com café 101 / 5.50, quantidade 3 | subtotal e total 16.50 |
+| opção 2: alterar café para 6.00; opção 1 | subtotal e total 18.00 |
+| opção 3: alterar quantidade para 4; opção 1 | subtotal e total 24.00 |
+| informar preço 0 ou quantidade 0 | valor anterior preservado |
+| exibir pedido | número, código, preço, quantidade, subtotal e total visíveis |
 
 ## Critério de conclusão
 
