@@ -2,9 +2,101 @@
 
 **Projeto 2:** por que objetos precisam colaborar.
 
-# 2. O que vamos aprender hoje
+# 2. Antes do código: o que é o Projeto 2?
 
-Construir e executar um pedido com produto, item, preço, quantidade e total recalculado pelo menu.
+O Projeto 2 é um programa Java construído em etapas para representar pedidos de uma pequena cafeteria apenas em memória. Ele não é um sistema comercial completo: é um laboratório para aprender como objetos se relacionam e dividem responsabilidades.
+
+# 3. Qual problema o projeto representa?
+
+Uma cafeteria possui produtos. Ao comprar três cafés, surgem dados que não pertencem apenas ao café: quantidade da compra, número do pedido e total.
+
+# 4. O vocabulário do problema
+
+- `Produto`: algo que a cafeteria oferece para venda.
+- `ItemPedido`: um produto escolhido em uma quantidade específica.
+- `Pedido`: uma compra identificada por número e formada por seus itens.
+
+Essas palavras descrevem o problema antes de se tornarem classes Java.
+
+# 5. Uma história concreta
+
+O café 101 custa 5.50. Ana abre o pedido 10 e compra três cafés. A compra deve mostrar produto, preço, quantidade, subtotal e total 16.50.
+
+# 6. Por que Produto não guarda quantidade?
+
+O mesmo café pode estar em duas compras diferentes: pedido 10 com três unidades e pedido 11 com uma. Quantidade é uma propriedade do café dentro de uma compra, não do catálogo.
+
+# 7. A classe que falta
+
+`ItemPedido` representa “este Produto nesta quantidade”. Ele liga o produto à quantidade específica e calcula o valor dessa linha da compra.
+
+# 8. O papel de Pedido
+
+Pedido representa a compra como um todo: guarda seu número, cria e controla o item desta versão, pede o subtotal ao item e apresenta o total ao usuário.
+
+# 9. O que o programa fará hoje?
+
+```text
+1 - exibir o pedido
+2 - alterar o preço do café
+3 - alterar a quantidade comprada
+0 - encerrar
+```
+
+# 10. Por que começar com um único item?
+
+Um pedido real possui vários itens. Hoje há somente um para tornar os vínculos entre as três classes visíveis. No próximo encontro, `ArrayList` permitirá vários itens.
+
+# 11. O que fica fora do recorte?
+
+Não construiremos banco de dados, tela gráfica, cliente ou pagamento. Esses temas não ajudam a observar relacionamentos neste momento.
+
+# 12. Como o Projeto 2 evoluirá?
+
+- Encontro 7: um pedido, um item e um produto; relações e responsabilidades.
+- Encontro 8: `ArrayList` e CRUD em coleção.
+- Encontro 9: relações 1:1 e 1:N.
+- Encontro 10: validações, `toString`, comparação e fechamento.
+
+# 13. Produto esperado hoje
+
+Programa executável que recalcula o total quando preço ou quantidade mudam. Cada regra deve ficar na classe que possui os dados necessários.
+
+# 14. Do problema para os objetos
+
+# 15. A tentativa procedural
+
+```java
+double preco = 5.50;
+int quantidade = 3;
+double total = preco * quantidade;
+```
+
+O problema não é a conta; é `main` concentrar dados e regras de objetos diferentes.
+
+# 16. O que são relacionamentos?
+
+Relacionamento é a ligação entre objetos quando um precisa guardar, usar ou pedir uma ação a outro para cumprir sua tarefa. Em Java, aparece como uma referência em um atributo.
+
+# 17. O que eles resolvem?
+
+Evitam copiar e espalhar dados. `ItemPedido` consulta o preço atual em `Produto`; assim, uma mudança de preço é feita em uma única fonte.
+
+# 18. O que são responsabilidades?
+
+Responsabilidade é aquilo que uma classe deve saber ou fazer porque possui os dados necessários. Ela define onde uma regra será escrita, testada e mantida.
+
+# 19. Composição: por que existe?
+
+Composição define quem cria e controla uma parte. Pedido cria seu ItemPedido; `main` não deixa o item solto sem saber a qual pedido pertence.
+
+# 20. O programa em execução
+
+O menu prova que a estrutura não é só desenho: opção 1 exibe 16.50; preço 6.00 altera o total para 18.00; quantidade 4 altera o total para 24.00.
+
+# 21. Os conceitos em prática
+
+As próximas seções mostram associação, responsabilidade, composição, UML, código e testes do programa.
 
 # 3. O que já sabemos
 
