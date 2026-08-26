@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="900" viewBox="0 0 1800 900" role="img" aria-labelledby="title desc">
+  <title id="title">Fluxo de execução do programa de pedido</title>
+  <desc id="desc">O método main cria Produto e Pedido, Pedido cria ItemPedido, então o programa calcula e exibe o total.</desc>
+  <defs><marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#1769aa"/></marker></defs>
+  <rect width="1800" height="900" fill="#f8fbff"/>
+  <text x="900" y="90" text-anchor="middle" font-family="Arial, sans-serif" font-size="46" font-weight="700" fill="#17324d">O que acontece quando o programa executa?</text>
+  <g font-family="Arial, sans-serif" fill="#17324d">
+    <rect x="70" y="300" width="310" height="260" rx="20" fill="#e8f1fb" stroke="#1769aa" stroke-width="5"/>
+    <text x="225" y="380" text-anchor="middle" font-size="34" font-weight="700">1. main</text><text x="225" y="455" text-anchor="middle" font-size="28">cria cafe</text>
+    <rect x="500" y="300" width="310" height="260" rx="20" fill="#e8f4ea" stroke="#2e7d32" stroke-width="5"/>
+    <text x="655" y="380" text-anchor="middle" font-size="34" font-weight="700">2. Produto</text><text x="655" y="445" text-anchor="middle" font-size="28">101 / 5.50</text>
+    <rect x="930" y="300" width="310" height="260" rx="20" fill="#fff8e1" stroke="#ef9f00" stroke-width="5"/>
+    <text x="1085" y="380" text-anchor="middle" font-size="34" font-weight="700">3. Pedido</text><text x="1085" y="455" text-anchor="middle" font-size="28">cria ItemPedido</text>
+    <rect x="1360" y="300" width="370" height="260" rx="20" fill="#f3e8ff" stroke="#7e57c2" stroke-width="5"/>
+    <text x="1545" y="380" text-anchor="middle" font-size="34" font-weight="700">4. ItemPedido</text><text x="1545" y="435" text-anchor="middle" font-size="28">3 x 5.50</text><text x="1545" y="490" text-anchor="middle" font-size="32" font-weight="700">total 16.50</text>
+  </g>
+  <line x1="390" y1="430" x2="490" y2="430" stroke="#1769aa" stroke-width="8" marker-end="url(#arrow)"/>
+  <line x1="820" y1="430" x2="920" y2="430" stroke="#1769aa" stroke-width="8" marker-end="url(#arrow)"/>
+  <line x1="1250" y1="430" x2="1350" y2="430" stroke="#1769aa" stroke-width="8" marker-end="url(#arrow)"/>
+  <text x="900" y="720" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" fill="#425466">A saída é resultado da colaboração entre objetos, não de um cálculo isolado no main.</text>
+</svg>
