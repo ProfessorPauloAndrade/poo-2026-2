@@ -1,63 +1,63 @@
-# Encontro 08 — CRUD de itens com ArrayList
+# Encontro 08 — Atividade: coleções e CRUD de itens
 
-## Objetivo e contexto
+## Contexto e objetivo
 
-Evoluir o pedido da cafeteria do encontro 07 para vários itens, preservando associação, composição e validações. Duplas durante a prática; resposta de saída individual. Dados fictícios: café 101/5.50, pão 202/8.00 e suco 303/4.00. Catálogo fixo; pedido 10 começa vazio.
+Evolua o pedido da cafeteria do encontro 07 para vários itens. Escreva a implementação completa: este pacote contém enunciados e orientações de preenchimento, sem implementação fornecida.
 
-## Recursos e execução
+Dados fictícios do catálogo: café de código 101 e preço 5.50; pão de código 202 e preço 8.00; suco de código 303 e preço 4.00. Pedido 10 começa vazio. Catálogo fixo; itens do pedido em uma coleção. Dados somente em memória.
 
-Use JDK, editor e terminal. Copie `exemplos/aluno/ProjetoPedidoListaInicial.java` para a pasta do seu Projeto 2. Não compile junto com as versões antigas: elas possuem classes com os mesmos nomes.
+## O que você deve preencher
 
-```text
-javac -encoding UTF-8 ProjetoPedidoListaInicial.java
-java ProjetoPedidoListaInicial
-```
+O arquivo exemplos/aluno/ProjetoPedidoListaInicial.java contém somente comentários de orientação. Não há estrutura Java implementada. Escreva os imports, atributos, construtores, assinaturas, métodos e programa principal.
 
-O arquivo inicial compila, mas os métodos com TODO ainda não executam o CRUD. Informe números válidos e preços com ponto; entrada textual em campos numéricos ainda não é tratada. Nenhum dado é salvo ao sair.
+| Parte | Trabalho a realizar |
+|---|---|
+| Produto | definir código e preço; criar objetos; consultar dados; controlar alteração de preço |
+| ItemPedido | relacionar produto e quantidade; consultar código; controlar quantidade; calcular subtotal; exibir |
+| Pedido | definir número e coleção; criar pedido; contar itens; buscar; incluir; consultar; alterar; remover; calcular total; exibir |
+| Programa principal | preparar catálogo; criar pedido; mostrar menu; ler entradas; coordenar operações e mensagens |
 
-## Regras
+Justifique as responsabilidades e o que deve ficar protegido em cada classe. Escolha e documente o contrato da busca. Escreva toda a implementação sem copiar a demonstração do professor.
 
-- Código deve existir no catálogo. Cada código aparece no máximo uma vez no pedido; repetição é recusada sem somar quantidade.
-- Quantidade deve ser positiva. Preço deve ser positivo. Pedido vazio tem total zero.
-- Operação recusada preserva o estado. Busca devolve índice ou -1; nunca usar -1 em get/remove.
-- Pedido cria seus itens, mantém a lista privada e delega quantidade/subtotal. Produto mantém preço atual, compartilhado por referência.
+## Regras e menu
 
-## Etapas de prática
+- O produto solicitado deve existir no catálogo.
+- Cada código pode aparecer no máximo uma vez no pedido; inclusão repetida deve ser recusada.
+- Quantidade e preço devem ser positivos; preço deve ser finito.
+- Uma operação recusada deve preservar o estado anterior.
+- Produto mantém seu preço atual. Pedido controla seus itens e não expõe sua coleção interna.
+- Quantidade pertence ao item. Subtotal e total devem respeitar as responsabilidades discutidas na aula.
+- Não confunda identidade do produto com posição na coleção.
 
-1. **8 min:** experimente add, size, get e remove em uma lista de produtos; registre posições antes/depois.
-2. **7 min:** rastreie buscarIndice para 303 e 999 numa lista com 101, 202, 303.
-3. **12 min:** complete busca, inclusão e consulta; teste vazio, duas inclusões, repetição, quantidade inválida e código 999.
-4. **15 min:** complete alteração e remoção. Teste um código existente e um ausente; remova o primeiro e opere sobre o último.
-5. **12 min — investigação:** um caixa escreveu `itens.remove(codigo)` e testou um rascunho defeituoso com código 0 (fora do catálogo final). Explique por que o teste escondia o erro. Construa um teste com códigos 101, 202, 303; corrija por busca e teste remoção intermediária seguida de alteração do último item.
-6. **28 min no total — integração (inclui os 12 min da investigação):** conclua total e listagem; execute a tabela abaixo e os casos adicionais. Produza arquivo, tabela observada e justificativas.
+Menu: 1 listar pedido; 2 incluir item; 3 consultar item; 4 alterar quantidade; 5 remover item; 6 alterar preço; 7 mostrar catálogo; 0 sair. Informe números válidos e preços com ponto. Tratamento de entradas textuais por exceções fica para depois.
 
-## Sequência principal de testes
+## Etapas da atividade
 
-| Ação, nesta ordem | Total esperado |
-|---|---:|
-| listar vazio | 0.00 |
-| incluir 101, quantidade 3 | 16.50 |
-| incluir 202, quantidade 2 | 32.50 |
-| alterar preço 101 para 6.00 | 34.00 |
-| alterar quantidade 202 para 1 | 26.00 |
-| remover 101 | 8.00 |
-| remover 202 | 0.00 |
+1. **8 minutos:** escreva um experimento com uma lista de produtos. Preveja tamanho e conteúdo antes/depois de incluir, acessar e remover elementos.
+2. **7 minutos:** desenhe três itens de códigos 101, 202 e 303. Rastreie a busca de 303 e de 999. Preencha posições visitadas, comparações e resultado.
+3. **12 minutos:** escreva busca, inclusão e consulta. Teste pedido vazio, inclusões válidas, repetição, quantidade inválida e código ausente.
+4. **15 minutos:** escreva alteração e remoção. Remova o primeiro item e opere sobre o último; investigue se sua identidade foi preservada.
+5. **12 minutos de investigação, dentro do laboratório:** um programa defeituoso trata o código informado como posição e foi testado apenas com código zero, fora do catálogo final. Explique o que esse teste esconde. Crie um caso que revele a falha, proponha sua implementação corrigida e comprove seu comportamento.
+6. **28 minutos de laboratório no total, incluindo a investigação:** conclua todas as partes do programa, o total e a listagem. Execute o menu completo e registre as evidências.
 
-Casos adicionais: quantidade zero/negativa; inclusão duplicada; código 999 nas quatro operações; remoção primeiro/meio/último; reinclusão depois de vazio; preço zero; opção de menu desconhecida. Refaça também a sequência da aula 07: 16.50 → 18.00 → 24.00.
+## Previsão e testes — preencher antes de executar
 
-## Entrega e conclusão
+| Ação, nesta ordem | Itens antes | Total previsto | Resultado observado | Conclusão |
+|---|---|---|---|---|
+| listar pedido vazio | preencher | preencher | preencher | preencher |
+| incluir 101, quantidade 3 | preencher | preencher | preencher | preencher |
+| incluir 202, quantidade 2 | preencher | preencher | preencher | preencher |
+| alterar preço de 101 para 6.00 | preencher | preencher | preencher | preencher |
+| alterar quantidade de 202 para 1 | preencher | preencher | preencher | preencher |
+| remover 101 | preencher | preencher | preencher | preencher |
+| remover 202 | preencher | preencher | preencher | preencher |
 
-Entregue Java compilável, tabela com entrada/estado anterior/esperado/observado/conclusão e justificativa de índice versus código, alteração do objeto versus set, e controle da lista pelo Pedido. Registre um commit no repositório próprio do Projeto 2. IA pode apoiar, mas não substitui a previsão individual e a escrita da saída final.
+Crie também testes de quantidade zero/negativa, preço zero/negativo/não finito, duplicidade, código 999, remoção do primeiro/intermediário/último, reinclusão após esvaziar e opção desconhecida. Reproduza o caso de um único item da aula 07 e calcule você os resultados esperados. Registre os estados, além das mensagens.
 
-Critérios: todas as operações funcionam; recusas preservam estado; deslocamento não altera identidade; preço compartilhado afeta subtotal; cálculo permanece delegado. Sem Internet, use os arquivos locais; sem computador, rastreie posições, códigos, quantidade e total em papel e escreva busca/remoção.
+## Entrega e critérios
 
-## Organização para acompanhar os slides
+Entregue programa Java escrito por você, tabela preenchida e justificativas sobre código versus índice, alteração de objeto versus substituição de referência, encapsulamento e responsabilidades.
 
-1. Coleções: criar e experimentar uma lista (slides 8–18).
-2. Refatoração: proteger a coleção em Pedido (19–23).
-3. Busca por código e retorno -1 (24–28).
-4. CRUD: implementar inclusão/consulta e depois atualização/remoção (29–39).
-5. Percursos: total, listagem e preço compartilhado (40–47).
-6. Laboratório, testes e comparação com o encontro 07 (48–55).
+Critérios: menu completo; operações corretas; recusas preservam estado; remoções preservam a identidade dos demais itens; preço compartilhado se reflete nos cálculos; total e subtotal respeitam as responsabilidades.
 
-Na prática de inclusão/consulta (12 minutos), complete também consultarItem e teste o código 999. O código 0 da investigação representa um rascunho defeituoso; não integra o catálogo do programa final. Os diagramas estão em assets/ e também no repositório público.
+Após implementar, compile e execute em uma pasta separada das versões anteriores, com JDK e editor/terminal. Registre um commit no seu Projeto 2 após testar. Sem Internet, mantenha o commit local; sem computador, escreva a proposta e rastreie em papel.
