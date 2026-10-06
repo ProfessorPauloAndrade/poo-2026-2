@@ -26,10 +26,10 @@ O arquivo inicial compila, mas os métodos com TODO ainda não executam o CRUD. 
 
 1. **8 min:** experimente add, size, get e remove em uma lista de produtos; registre posições antes/depois.
 2. **7 min:** rastreie buscarIndice para 303 e 999 numa lista com 101, 202, 303.
-3. **12 min:** complete busca e inclusão; teste vazio, duas inclusões, repetição e quantidade inválida.
-4. **15 min:** complete consulta, alteração e remoção. Teste um código existente e um ausente; remova o primeiro e opere sobre o último.
-5. **12 min — investigação:** um caixa escreveu `itens.remove(codigo)` e testou apenas código 0. Explique por que o teste escondia o erro. Construa um teste com códigos 101, 202, 303; corrija por busca e teste remoção intermediária seguida de alteração do último item.
-6. **28 min — integração:** conclua total e listagem; execute a tabela abaixo e os casos adicionais. Produza arquivo, tabela observada e justificativas.
+3. **12 min:** complete busca, inclusão e consulta; teste vazio, duas inclusões, repetição, quantidade inválida e código 999.
+4. **15 min:** complete alteração e remoção. Teste um código existente e um ausente; remova o primeiro e opere sobre o último.
+5. **12 min — investigação:** um caixa escreveu `itens.remove(codigo)` e testou um rascunho defeituoso com código 0 (fora do catálogo final). Explique por que o teste escondia o erro. Construa um teste com códigos 101, 202, 303; corrija por busca e teste remoção intermediária seguida de alteração do último item.
+6. **28 min no total — integração (inclui os 12 min da investigação):** conclua total e listagem; execute a tabela abaixo e os casos adicionais. Produza arquivo, tabela observada e justificativas.
 
 ## Sequência principal de testes
 
@@ -50,3 +50,14 @@ Casos adicionais: quantidade zero/negativa; inclusão duplicada; código 999 nas
 Entregue Java compilável, tabela com entrada/estado anterior/esperado/observado/conclusão e justificativa de índice versus código, alteração do objeto versus set, e controle da lista pelo Pedido. Registre um commit no repositório próprio do Projeto 2. IA pode apoiar, mas não substitui a previsão individual e a escrita da saída final.
 
 Critérios: todas as operações funcionam; recusas preservam estado; deslocamento não altera identidade; preço compartilhado afeta subtotal; cálculo permanece delegado. Sem Internet, use os arquivos locais; sem computador, rastreie posições, códigos, quantidade e total em papel e escreva busca/remoção.
+
+## Organização para acompanhar os slides
+
+1. Coleções: criar e experimentar uma lista (slides 8–18).
+2. Refatoração: proteger a coleção em Pedido (19–23).
+3. Busca por código e retorno -1 (24–28).
+4. CRUD: implementar inclusão/consulta e depois atualização/remoção (29–39).
+5. Percursos: total, listagem e preço compartilhado (40–47).
+6. Laboratório, testes e comparação com o encontro 07 (48–55).
+
+Na prática de inclusão/consulta (12 minutos), complete também consultarItem e teste o código 999. O código 0 da investigação representa um rascunho defeituoso; não integra o catálogo do programa final. Os diagramas estão em assets/ e também no repositório público.

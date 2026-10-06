@@ -19,7 +19,7 @@ Cada pasta contém a apresentação em Markdown, o material do aluno e os exempl
 
 ## Requisitos gerais
 
-Encontro 08: [Coleções e CRUD com ArrayList — apresentação no Gamma](https://gamma.app/docs/12ks8h12wrhmelt).
+Encontro 08: [Coleções e CRUD com ArrayList — apresentação no Gamma](https://gamma.app/docs/6tvgpl2wxaavub7).
 
 - JDK LTS adotado pela turma;
 - Visual Studio Code ou outro editor;

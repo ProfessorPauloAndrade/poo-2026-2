@@ -2,11 +2,17 @@
 
 Continuidade do Projeto 2 da cafeteria: substituir um item por uma lista tipada de itens, buscar pelo código do produto e implementar inclusão, consulta, alteração e remoção sem perder as responsabilidades das classes.
 
-[Apresentação no Gamma — 40 slides](https://gamma.app/docs/12ks8h12wrhmelt)
+[Apresentação no Gamma — 55 slides](https://gamma.app/docs/6tvgpl2wxaavub7)
 
 - [Roteiro da apresentação](APRESENTACAO.md)
 - [Material do aluno: etapas, testes e critérios](MATERIAL_ALUNO.md)
 - [Código inicial com TODOs](exemplos/aluno/ProjetoPedidoListaInicial.java)
+
+## Organização da apresentação
+
+Introdução com tema, objetivos, retomada do encontro 07 e mapa da aula. Seis blocos: coleções, refatoração, busca, CRUD, percursos e prática/testes. Inclui uma ilustração e seis diagramas de referências, colaboração, busca, remoção, total e preço compartilhado.
+
+- [Recursos visuais e sua função](assets/README.md)
 
 ## Executar
 
