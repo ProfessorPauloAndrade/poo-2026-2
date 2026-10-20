@@ -15,8 +15,9 @@ Materiais destinados aos estudantes da disciplina de Programação Orientada a O
 | 7 | Projeto 2: relacionamentos e responsabilidades | [Abrir](encontros/encontro-07/) |
 | 8 | Projeto 2: coleções e CRUD com ArrayList | [Abrir](encontros/encontro-08/) |
 | 9 | Projeto 2: relacionamentos 1:1 e 1:N | [Abrir](encontros/encontro-09/) |
+| 10 | Projeto 2: validação, toString e comparação | [Abrir](encontros/encontro-10/) |
 
-As pastas reúnem os materiais de acompanhamento de cada encontro. Nos encontros 08 e 09, o pacote público contém exclusivamente enunciados, perguntas e orientações de preenchimento, sem implementação completa ou parcial. Os decks completos dos encontros 3 a 7 também estão disponíveis no Gamma: [Encontro 3](https://gamma.app/docs/op065whc053zb46), [Encontro 4](https://gamma.app/docs/i4qgseeq50ks4q6), [Encontro 5](https://gamma.app/docs/qx9gqdxt3pdhgva), [Encontro 6](https://gamma.app/docs/fpljkrz226ib3b7) e [Encontro 7](https://gamma.app/docs/37e05annea8c0lx).
+As pastas reúnem os materiais de acompanhamento de cada encontro. Nos encontros 08, 09 e 10, o pacote público contém exclusivamente enunciados, perguntas e orientações de preenchimento, sem implementação completa ou parcial. Os decks completos dos encontros 3 a 7 também estão disponíveis no Gamma: [Encontro 3](https://gamma.app/docs/op065whc053zb46), [Encontro 4](https://gamma.app/docs/i4qgseeq50ks4q6), [Encontro 5](https://gamma.app/docs/qx9gqdxt3pdhgva), [Encontro 6](https://gamma.app/docs/fpljkrz226ib3b7) e [Encontro 7](https://gamma.app/docs/37e05annea8c0lx).
 
 ## Requisitos gerais
 
