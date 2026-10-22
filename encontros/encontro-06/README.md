@@ -8,3 +8,16 @@ Neste encontro, concluiremos a evolução do cadastro de produtos. `Produto` dei
 4. Preserve as regras e os testes do CRUD enquanto refatora.
 
 A solução completa permanece fora deste repositório.
+
+## Como compilar e começar
+
+Abra um terminal na pasta `exemplos/encontro-6/aluno` deste encontro e execute:
+
+```sh
+javac -encoding UTF-8 CadastroProdutosEncapsuladoInicial.java
+java CadastroProdutosEncapsuladoInicial
+```
+
+Compile cada encontro em sua própria pasta, pois os nomes das classes auxiliares se repetem. O esqueleto compila antes de ser preenchido; o funcionamento dos exercícios depende dos `TODO`s. Retornos provisórios não comprovam os resultados esperados. Complete uma etapa, recompile e confira o estado dos objetos com os testes do material.
+
+No construtor completo de `Produto`, substitua as atribuições provisórias `0` e `0.0` pelos parâmetros recebidos. Elas apenas permitem compilar o arquivo inicial.

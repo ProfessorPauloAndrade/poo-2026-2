@@ -2,22 +2,22 @@
 
 ## Contexto e objetivo
 
-Evolua o pedido da cafeteria do encontro 07 para vários itens. Escreva a implementação completa: este pacote contém enunciados e orientações de preenchimento, sem implementação fornecida.
+Evolua o pedido da cafeteria do encontro 07 para vários itens. Complete os `TODO`s do esqueleto fornecido, preservando as responsabilidades discutidas nos encontros anteriores.
 
 Dados fictícios do catálogo: café de código 101 e preço 5.50; pão de código 202 e preço 8.00; suco de código 303 e preço 4.00. Pedido 10 começa vazio. Catálogo fixo; itens do pedido em uma coleção. Dados somente em memória.
 
 ## O que você deve preencher
 
-O arquivo exemplos/aluno/ProjetoPedidoListaInicial.java contém somente comentários de orientação. Não há estrutura Java implementada. Escreva os imports, atributos, construtores, assinaturas, métodos e programa principal.
+O arquivo `exemplos/aluno/ProjetoPedidoListaInicial.java` contém imports, classes, atributos, construtores, assinaturas e menu. Ele já compila e executa o menu. Complete as regras, buscas, CRUD, cálculos e exibição nos `TODO`s; retornos provisórios não atendem aos testes. Você pode adaptar sua implementação anterior para as partes de continuidade.
 
 | Parte | Trabalho a realizar |
 |---|---|
-| Produto | definir código e preço; criar objetos; consultar dados; controlar alteração de preço |
-| ItemPedido | relacionar produto e quantidade; consultar código; controlar quantidade; calcular subtotal; exibir |
-| Pedido | definir número e coleção; criar pedido; contar itens; buscar; incluir; consultar; alterar; remover; calcular total; exibir |
-| Programa principal | preparar catálogo; criar pedido; mostrar menu; ler entradas; coordenar operações e mensagens |
+| Produto | conferir os atributos e consultas fornecidos; completar a alteração controlada de preço |
+| ItemPedido | conferir o vínculo fornecido; completar alteração de quantidade, subtotal e exibição |
+| Pedido | conferir número e coleção privada; completar busca, inclusão, consulta, alteração, remoção, total e exibição |
+| Programa principal | explorar o catálogo, o pedido e o menu fornecidos; conferir a integração das operações após completar os TODOs |
 
-Justifique as responsabilidades e o que deve ficar protegido em cada classe. Escolha e documente o contrato da busca. Escreva toda a implementação sem copiar a demonstração do professor.
+Justifique as responsabilidades e o que deve ficar protegido em cada classe. O esqueleto adota busca por índice, com `-1` para ausência. Explique esse contrato e implemente a busca sem confundir código com posição. Complete os métodos com seu próprio código.
 
 ## Regras e menu
 

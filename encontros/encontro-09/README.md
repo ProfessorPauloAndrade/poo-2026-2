@@ -1,13 +1,26 @@
 # Encontro 09 — Relacionamentos 1:1 e 1:N
 
-Continuidade do Projeto 2: relacionar clientes, pedidos, fichas de retirada e itens. Material para você preencher e escrever sua própria implementação.
+Complete o Projeto 2 a partir do esqueleto Java ou adapte a sua implementação do encontro anterior. A estrutura básica está fornecida; as regras e operações marcadas com `TODO` são trabalho do aluno.
 
-- [Enunciado, regras, práticas e tabelas em branco](MATERIAL_ALUNO.md)
-- [Perguntas de estudo para responder](ROTEIRO_DE_ESTUDO.md)
-- [Arquivo Java somente com comentários de orientação](exemplos/aluno/ProjetoPedidosRelacionadosInicial.java)
+- [Enunciado, requisitos, práticas e tabelas](MATERIAL_ALUNO.md)
+- [Roteiro de estudo e investigação](ROTEIRO_DE_ESTUDO.md)
+- [Esqueleto Java para completar](exemplos/aluno/ProjetoPedidosRelacionadosInicial.java)
 
-Não há código completo ou parcial, assinaturas, corpos de métodos, menu pronto, gabaritos, diagramas resolvidos ou link para a apresentação de demonstração. Escreva o programa inteiro, usando a sua própria implementação do encontro 08 como ponto de partida. O arquivo de orientação só se torna executável após o preenchimento.
+O arquivo contém imports, classes, atributos privados, construtores, assinaturas, dados fictícios e menu conectado às operações. Já compila e abre o menu, mas os métodos pendentes ainda não realizam os requisitos. Os retornos provisórios e as mensagens `TODO` não são resultados válidos dos testes da atividade.
 
-Use JDK, editor e terminal. Compile versões em pastas distintas, pois os nomes de classes se repetem. Dados fictícios em memória. Em campos numéricos, informe números válidos e ponto no preço. Entregue código, diagramas, tabela e justificativas, conforme os critérios do enunciado.
+Use JDK, editor e terminal. Dados em memória; entradas numéricas válidas, com ponto nos preços. Entregue seu código, diagramas, tabelas e justificativas conforme o enunciado. Gabaritos e soluções completas permanecem com o professor.
 
-Sem Internet: arquivos baixados e commit local. Sem computador: desenhe vínculos e rastreie os estados em papel.
+Sem Internet: arquivos baixados e commit local. Sem computador: desenhe vínculos e rastreie estados em papel.
+
+## Como compilar e começar
+
+Abra um terminal na pasta `exemplos/aluno` deste encontro e execute:
+
+```sh
+javac -encoding UTF-8 ProjetoPedidosRelacionadosInicial.java
+java ProjetoPedidosRelacionadosInicial
+```
+
+Compile cada encontro em sua própria pasta, pois os nomes das classes auxiliares se repetem. O esqueleto compila antes de ser preenchido; o funcionamento dos exercícios depende dos `TODO`s. Retornos provisórios não comprovam os resultados esperados. Complete uma etapa, recompile e confira o estado dos objetos com os testes do material.
+
+Comece pelos vínculos no construtor de `Pedido`: substitua as referências provisórias `null` do cliente e da ficha. Retome os seus métodos do encontro anterior nos `TODO`s de continuidade; depois complete as novidades deste encontro.

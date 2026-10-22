@@ -8,3 +8,14 @@ Neste encontro, iniciaremos um pedido formado por objetos que colaboram. `ItemPe
 4. Preserve as responsabilidades de cada classe enquanto completa o exemplo.
 
 A solução completa permanece fora deste repositório.
+
+## Como compilar e começar
+
+Abra um terminal na pasta `exemplos/encontro-7/aluno` deste encontro e execute:
+
+```sh
+javac -encoding UTF-8 ProjetoPedidoInicial.java
+java ProjetoPedidoInicial
+```
+
+Compile cada encontro em sua própria pasta, pois os nomes das classes auxiliares se repetem. O esqueleto compila antes de ser preenchido; o funcionamento dos exercícios depende dos `TODO`s. Retornos provisórios não comprovam os resultados esperados. Complete uma etapa, recompile e confira o estado dos objetos com os testes do material.

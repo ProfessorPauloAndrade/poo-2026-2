@@ -9,6 +9,9 @@ class Produto {
         // TODO 2:
         // Receba os dados ja validados pelo cadastro
         // e atribua-os aos atributos usando this.
+        // Substitua estes valores provisorios pelos parametros recebidos.
+        this.codigo = 0;
+        this.preco = 0.0;
     }
 
     Produto(int codigo) {
@@ -50,6 +53,7 @@ public class CadastroProdutosEncapsuladoInicial {
     public static void main(String[] args) {
 
         Locale.setDefault(Locale.US);
+        System.out.println("ESQUELETO: complete os TODOs antes de validar o CRUD.");
 
         Scanner entrada = new Scanner(System.in);
 
@@ -180,7 +184,7 @@ public class CadastroProdutosEncapsuladoInicial {
         // TODO 6:
         // Crie aqui o novo Produto usando seu construtor.
 
-        System.out.println("Produto cadastrado.");
+        System.out.println("TODO: concluir o cadastro antes de informar sucesso.");
 
         // TODO 6:
         // Retorne a nova quantidade somente se
