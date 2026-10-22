@@ -53,7 +53,7 @@ Responsabilidade localizada, correção proposta e regressão necessária: _____
 
 ## Entrega e critérios
 
-Entregue sua implementação no mesmo repositório pessoal, documentação de primeira execução, registros dos testes e pendências. Preserve a etapa anterior e confira quais arquivos fará parte do commit. Não inclua dados pessoais ou credenciais.
+Entregue sua implementação no mesmo repositório pessoal, documentação de primeira execução, registros dos testes e pendências. Preserve a etapa anterior e confira quais arquivos farão parte do commit. Não inclua dados pessoais ou credenciais.
 
 - Jornada completa coerente, com visita encerrada preservada e nova visita distinta.
 - Recusas preservam dados e numeração e permitem solicitação válida posterior.
