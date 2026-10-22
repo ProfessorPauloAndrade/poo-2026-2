@@ -1,5 +1,5 @@
 /*
-Encontro14 — orientação para escrever sua própria evolução.
+Encontro 14 — orientação para escrever sua própria evolução.
 Preserve o projeto anterior e implemente integralmente as novas proteções.
 Identifique origens de falha, responsabilidades, caminhos de tratamento e estados válidos.
 Proteja construção, alteração, encerramento, consultas e relações entre registros.
