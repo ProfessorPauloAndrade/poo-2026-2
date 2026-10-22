@@ -7,7 +7,7 @@ Concluir o cadastro de produtos para que cada `Produto` seja criado com seus dad
 ## Roteiro
 
 1. Abra `exemplos/encontro-6/aluno/CadastroProdutosEncapsuladoInicial.java`.
-2. Complete o construtor `Produto(int codigo, double preco)` com `this.codigo = codigo` e `this.preco = preco`.
+2. Substitua os valores provisórios `0` e `0.0` no construtor `Produto(int codigo, double preco)` com `this.codigo = codigo` e `this.preco = preco`.
 3. Leia o construtor sobrecarregado `Produto(int codigo)`: ele chama o construtor completo com `this(codigo, 1.00)`.
 4. Complete `alterarPreco(double novoPreco)` para recusar valor menor ou igual a zero.
 5. Use `getCodigo()` para a busca e `alterarPreco()` para a mudança de preço. Não acesse atributos diretamente.

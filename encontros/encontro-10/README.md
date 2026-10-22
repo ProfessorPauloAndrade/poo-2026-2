@@ -1,13 +1,28 @@
 # Encontro 10 — Projeto 2: validação, representação e comparação
 
-Conclua o seu sistema de pedidos com regras de alteração, descrições textuais e comparação de produtos. Você deve escrever a implementação e produzir suas próprias evidências.
+Complete o Projeto 2 a partir do esqueleto Java ou adapte a sua implementação do encontro anterior. A estrutura básica está fornecida; as regras e operações marcadas com `TODO` são trabalho do aluno.
 
-- [Enunciado, requisitos, práticas e tabelas para preencher](MATERIAL_ALUNO.md)
-- [Perguntas para investigação e justificativa](ROTEIRO_DE_ESTUDO.md)
-- [Arquivo Java com comentários de orientação](exemplos/aluno/ProjetoPedidosConfiaveisInicial.java)
+- [Enunciado, requisitos, práticas e tabelas](MATERIAL_ALUNO.md)
+- [Roteiro de estudo e investigação](ROTEIRO_DE_ESTUDO.md)
+- [Esqueleto Java para completar](exemplos/aluno/ProjetoPedidosConfiaveisInicial.java)
 
-Use a sua versão do encontro 09 como ponto de partida. Complete imports, classes, atributos, construtores, métodos e programa principal. O arquivo de orientação só será executável após sua implementação integral.
+O arquivo contém imports, classes, atributos privados, construtores, assinaturas, dados fictícios e menu conectado às operações. Já compila e abre o menu, mas os métodos pendentes ainda não realizam os requisitos. Os retornos provisórios e as mensagens `TODO` não são resultados válidos dos testes da atividade.
 
-Recursos: JDK, editor e terminal; dados fictícios em memória, cadastros iniciais válidos e campos numéricos no formato esperado. Compile versões em pastas distintas. Mantenha o Projeto 2 no seu repositório próprio.
+Use JDK, editor e terminal. Dados em memória; entradas numéricas válidas, com ponto nos preços. Entregue seu código, diagramas, tabelas e justificativas conforme o enunciado. Gabaritos e soluções completas permanecem com o professor.
 
-Entregue código próprio, previsões, testes, diagramas e parecer conforme a atividade. Sem Internet, trabalhe com os arquivos baixados e faça commit local; sem computador, preencha tabelas e desenhos em papel.
+Sem Internet: arquivos baixados e commit local. Sem computador: desenhe vínculos e rastreie estados em papel.
+
+## Como compilar e começar
+
+Abra um terminal na pasta `exemplos/aluno` deste encontro e execute:
+
+```sh
+javac -encoding UTF-8 ProjetoPedidosConfiaveisInicial.java
+java ProjetoPedidosConfiaveisInicial
+```
+
+Compile cada encontro em sua própria pasta, pois os nomes das classes auxiliares se repetem. O esqueleto compila antes de ser preenchido; o funcionamento dos exercícios depende dos `TODO`s. Retornos provisórios não comprovam os resultados esperados. Complete uma etapa, recompile e confira o estado dos objetos com os testes do material.
+
+Comece pelos vínculos no construtor de `Pedido`: substitua as referências provisórias `null` do cliente e da ficha. Retome os seus métodos do encontro anterior nos `TODO`s de continuidade; depois complete as novidades deste encontro.
+
+As versões iniciais de `equals` e `hashCode` delegam a `Object` e usam identidade. Substitua ambas conforme a política por código da atividade. Os textos `[TODO: representar ...]` também são provisórios. Faça a investigação de comparação diretamente pelos objetos, conforme o roteiro.

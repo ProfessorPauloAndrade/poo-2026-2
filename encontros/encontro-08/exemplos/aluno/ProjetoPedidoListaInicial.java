@@ -1,24 +1,194 @@
-/*
-ENCONTRO 08 - ARQUIVO PARA PREENCHIMENTO PELO ALUNO
+import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Scanner;
 
-Este arquivo contem apenas orientacoes. Nao ha classes, atributos,
-assinaturas, corpos de metodos, retornos provisorios ou menu implementados.
-Escreva todo o programa abaixo deste comentario.
+// ESQUELETO DO ALUNO: compila e abre o menu, mas nao e a solucao.
+// Retornos false, null e 0.0 sao provisórios. Complete os TODOs antes dos testes.
+// Crie os objetos com dados iniciais validos, conforme MATERIAL_ALUNO.md.
+class Produto {
+    private final int codigo;
+    private double preco;
 
-1. Importe as bibliotecas que seu programa precisar.
-2. Implemente Produto: codigo, preco, criacao, consultas e alteracao validada.
-3. Implemente ItemPedido: referencia ao produto, quantidade, criacao,
-   consulta de codigo, alteracao validada, subtotal e exibicao.
-4. Implemente Pedido: numero, colecao privada, criacao e contagem de itens.
-5. Em Pedido, escreva uma busca pelo codigo do produto. Defina e documente
-   o resultado de uma busca encontrada e de uma busca ausente.
-6. Implemente inclusao, consulta, alteracao de quantidade e remocao.
-7. Implemente total e exibicao do pedido, incluindo o caso vazio.
-8. Implemente a classe principal ProjetoPedidoListaInicial e seu main.
-9. Crie o catalogo descrito no enunciado, o pedido e o menu completo.
-10. Leia entradas, chame as operacoes e apresente resultados ao usuario.
-11. Preencha a tabela de testes ANTES de executar e compare os resultados.
+    Produto(int codigo, double preco) {
+        this.codigo = codigo;
+        this.preco = preco;
+    }
 
-Consulte MATERIAL_ALUNO.md para dados, regras, etapas e criterios.
-Compile e execute somente depois de escrever as classes e o main.
-*/
+    int getCodigo() { return codigo; }
+    double getPreco() { return preco; }
+
+    boolean alterarPreco(double novoPreco) {
+        // TODO: validar preco positivo e finito; atualizar somente se valido.
+        return false;
+    }
+
+    void exibir() {
+        System.out.printf("Codigo: %d | Preco: %.2f%n", codigo, preco);
+    }
+
+}
+
+class ItemPedido {
+    private final Produto produto;
+    private int quantidade;
+
+    ItemPedido(Produto produto, int quantidade) {
+        this.produto = produto;
+        this.quantidade = quantidade;
+    }
+
+    int getCodigoProduto() { return produto.getCodigo(); }
+    int getQuantidade() { return quantidade; }
+
+    boolean alterarQuantidade(int novaQuantidade) {
+        // TODO: recusar quantidade nao positiva, preservando o estado.
+        return false;
+    }
+
+    double calcularSubtotal() {
+        // TODO: calcular usando a referencia ao Produto e a quantidade atual.
+        return 0.0;
+    }
+
+    void exibir() {
+        // TODO: exibir codigo, preco atual, quantidade e subtotal.
+        System.out.println("TODO: exibir item.");
+    }
+
+}
+
+class Pedido {
+    private final int numero;
+    private final ArrayList<ItemPedido> itens;
+
+    Pedido(int numero) {
+        this.numero = numero;
+        this.itens = new ArrayList<>();
+
+    }
+
+    int getNumero() { return numero; }
+    int getQuantidadeItens() { return itens.size(); }
+
+    // Contrato: retorna o indice do item de mesmo codigo, ou -1 se ausente.
+    private int buscarIndicePorCodigo(int codigo) {
+        // TODO: percorrer a lista comparando codigos; codigo nao e indice.
+        return -1;
+    }
+
+    boolean incluirItem(Produto produto, int quantidade) {
+        // TODO: recusar produto nulo, quantidade invalida e duplicidade local.
+        // Criar o ItemPedido neste pedido somente depois das verificacoes.
+        return false;
+    }
+
+    void consultarItem(int codigo) {
+        // TODO: usar a busca; distinguir item ausente e item encontrado.
+        System.out.println("TODO: consultar item.");
+    }
+
+    boolean alterarQuantidade(int codigo, int novaQuantidade) {
+        // TODO: localizar o item e delegar a alteracao, sem substituir referencias.
+        return false;
+    }
+
+    boolean removerItem(int codigo) {
+        // TODO: buscar e remover com seguranca; preservar os demais itens.
+        return false;
+    }
+
+    double calcularTotal() {
+        // TODO: percorrer itens e acumular seus subtotais; considerar pedido vazio.
+        return 0.0;
+    }
+
+    void exibir() {
+        // TODO: mostrar numero, itens, total e, quando houver, cliente e ficha.
+        System.out.println("TODO: exibir pedido (inclusive o caso vazio).");
+    }
+
+
+}
+
+public class ProjetoPedidoListaInicial {
+    static void mostrarMenu() {
+        System.out.print("\n1-Listar 2-Incluir item 3-Consultar item 4-Alterar quantidade"
+            + "\n5-Remover item 6-Alterar preco 7-Catalogo 0-Sair\nOpcao: ");
+    }
+
+    // Infraestrutura do catalogo fixo; a busca dos itens fica em Pedido.
+    static Produto buscarProduto(Produto[] catalogo, int codigo) {
+        for (Produto produto : catalogo) {
+            if (produto.getCodigo() == codigo) return produto;
+        }
+        return null;
+    }
+
+    static void informarResultado(boolean realizado) {
+        System.out.println(realizado ? "Operacao realizada."
+            : "Operacao recusada ou pendente: confira os TODOs e os dados informados.");
+    }
+
+    public static void main(String[] args) {
+        Locale.setDefault(Locale.US);
+        Scanner entrada = new Scanner(System.in);
+        Produto[] catalogo = {
+            new Produto(101, 5.50), new Produto(202, 8.00), new Produto(303, 4.00)
+        };
+        Pedido pedido = new Pedido(10);
+        System.out.println("ESQUELETO: menu disponivel; regras e calculos dependem dos TODOs.");
+        int opcao;
+        do {
+            mostrarMenu();
+            opcao = entrada.nextInt();
+            switch (opcao) {
+                case 1:
+                    pedido.exibir();
+                    break;
+                case 2: {
+                    System.out.print("Codigo do produto: ");
+                    Produto produto = buscarProduto(catalogo, entrada.nextInt());
+                    System.out.print("Quantidade: ");
+                    int quantidade = entrada.nextInt();
+                    if (produto == null) System.out.println("Produto nao encontrado no catalogo.");
+                    else informarResultado(pedido.incluirItem(produto, quantidade));
+                    break;
+                }
+                case 3:
+                    System.out.print("Codigo do item: ");
+                    pedido.consultarItem(entrada.nextInt());
+                    break;
+                case 4: {
+                    System.out.print("Codigo do item: ");
+                    int codigo = entrada.nextInt();
+                    System.out.print("Nova quantidade: ");
+                    informarResultado(pedido.alterarQuantidade(codigo, entrada.nextInt()));
+                    break;
+                }
+                case 5:
+                    System.out.print("Codigo do item: ");
+                    informarResultado(pedido.removerItem(entrada.nextInt()));
+                    break;
+                case 6: {
+                    System.out.print("Codigo do produto: ");
+                    Produto produto = buscarProduto(catalogo, entrada.nextInt());
+                    System.out.print("Novo preco: ");
+                    double preco = entrada.nextDouble();
+                    if (produto == null) System.out.println("Produto nao encontrado no catalogo.");
+                    else informarResultado(produto.alterarPreco(preco));
+                    break;
+                }
+                case 7:
+                    for (Produto produto : catalogo) produto.exibir();
+                    break;
+
+                case 0:
+                    System.out.println("Programa encerrado.");
+                    break;
+                default:
+                    System.out.println("Opcao invalida.");
+            }
+        } while (opcao != 0);
+        entrada.close();
+    }
+}

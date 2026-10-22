@@ -15,4 +15,4 @@ Este roteiro contém perguntas, sem código modelado ou respostas. Consulte o en
 11. Compare o comportamento final com sua implementação anterior.
 12. Produza uma síntese e registre uma versão testada do Projeto 2.
 
-Não há apresentação de demonstração, implementação ou diagrama resolvido neste pacote público.
+O pacote público fornece um esqueleto Java compilável com `TODO`s. As respostas, os diagramas resolvidos e a solução completa permanecem com o professor.

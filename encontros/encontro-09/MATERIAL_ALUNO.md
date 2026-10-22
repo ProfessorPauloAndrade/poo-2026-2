@@ -2,7 +2,7 @@
 
 ## Objetivo e ponto de partida
 
-Evolua a sua implementação do Projeto 2 para representar um cliente com vários pedidos e uma ficha exclusiva para cada pedido. Preserve o CRUD de itens do encontro 08. Se sua versão anterior não estiver concluída, escreva também essas partes; este pacote fornece somente orientações, sem solução completa ou parcial.
+Evolua a sua implementação do Projeto 2 para representar um cliente com vários pedidos e uma ficha exclusiva para cada pedido. Preserve o CRUD de itens do encontro 08. Use o esqueleto fornecido para organizar as partes ainda pendentes e retome seu código anterior nos `TODO`s de continuidade. As novas relações e operações devem ser completadas por você.
 
 ## Dados do caso fictício
 
@@ -12,16 +12,16 @@ Catálogo fixo: café 101/5.50; pão 202/8.00; suco 303/4.00. Os cadastros de cl
 
 ## O que escrever
 
-O arquivo exemplos/aluno/ProjetoPedidosRelacionadosInicial.java contém apenas comentários. Escreva imports, classes, atributos, construtores, métodos, consultas e menu. Ele só será executável depois do seu preenchimento.
+O arquivo `exemplos/aluno/ProjetoPedidosRelacionadosInicial.java` fornece imports, classes, atributos, construtores, assinaturas e menu executável. Complete os `TODO`s. No construtor de `Pedido`, substitua os dois `null`s provisórios pelos vínculos adequados; implemente também consultas, delegações e as operações retomadas do encontro 08. O menu abre antes do preenchimento, mas ainda não realiza os requisitos.
 
 | Parte | Trabalho do aluno |
 |---|---|
 | Produto | preservar código, preço e alteração controlada |
 | ItemPedido | preservar vínculo com produto, quantidade, subtotal e exibição |
-| Cliente | escrever identificação, nome, consultas e alteração controlada |
-| FichaRetirada | escrever senha, guichê, consultas e alteração controlada |
+| Cliente | conferir identificação, nome e consultas; completar a alteração controlada |
+| FichaRetirada | conferir senha, guichê e consultas; completar a alteração controlada |
 | Pedido | relacionar cliente, ficha e itens; conservar CRUD e total; oferecer operações sem expor partes |
-| Programa principal | preparar cadastros; selecionar pedido; consultar por cliente; ler entradas e exibir resultados |
+| Programa principal | completar as buscas e a consulta por cliente; conferir a seleção e as operações no menu fornecido |
 
 Regras: cada pedido tem um cliente cadastrado e uma ficha exclusiva. Cliente pode não ter pedidos ou ter vários. Itens pertencem a um único pedido; produto do catálogo pode ser usado em vários. Código repetido é recusado dentro do mesmo pedido. Quantidade e guichê positivos; preço positivo e finito; alteração de nome não aceita texto vazio. Operações recusadas preservam o estado.
 

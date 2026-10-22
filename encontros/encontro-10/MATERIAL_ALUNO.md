@@ -2,9 +2,9 @@
 
 ## Propósito e ponto de partida
 
-Conclua seu Projeto 2: preserve os relacionamentos e o CRUD do encontro 09 e construa operações que mantenham dados válidos, descrições textuais úteis e um critério de comparação coerente para Produto. Use sua implementação anterior. Se não estiver completa, escreva as partes necessárias a partir dos requisitos; nenhum arquivo fornece solução total ou parcial.
+Conclua seu Projeto 2: preserve os relacionamentos e o CRUD do encontro 09 e construa operações que mantenham dados válidos, descrições textuais úteis e um critério de comparação coerente para Produto. Use sua implementação anterior. Retome seu código nos `TODO`s de continuidade do esqueleto e complete as novas tarefas. O esqueleto fornece a estrutura básica; as decisões e a solução são suas.
 
-O arquivo ProjetoPedidosConfiaveisInicial.java contém somente comentários. Preencha integralmente imports, classes, atributos, construtores, métodos, consultas e programa principal. Seu projeto deve continuar no repositório próprio do Projeto 2.
+O arquivo `exemplos/aluno/ProjetoPedidosConfiaveisInicial.java` contém imports, classes, atributos, construtores, assinaturas, sobrescritas e menu. Ele compila e abre antes do preenchimento. Complete os `TODO`s de validação, representação, igualdade e hash, retomando seu CRUD e os relacionamentos do encontro 09. Os vínculos `null`, textos de representação e retornos são provisórios; `equals` e `hashCode` ainda usam a identidade herdada de `Object`. Seu projeto deve continuar no repositório próprio do Projeto 2.
 
 ## Dados do caso fictício e limites
 
