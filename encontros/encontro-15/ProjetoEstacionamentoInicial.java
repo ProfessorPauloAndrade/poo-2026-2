@@ -1,10 +1,4 @@
-/*
-Encontro 15 — Projeto 3: orientacoes para sua implementacao.
-Preserve a etapa anterior e escreva integralmente sua propria solucao.
-Investigue a organizacao dos dados, a identidade na hierarquia e o acesso.
-Organize os arquivos e prepare uma construcao verificavel da versao atual.
-Registre previsoes, casos executados, resultados e pendencias.
-Implemente e teste as alteracoes conforme a atividade do encontro.
-Este arquivo contem apenas comentarios; nao fornece codigo ou assinaturas.
-Espaco para anotar suas decisoes: ____________________
-*/
+// Encontro 15: o projeto inicial agora esta em src/.
+// Abra a pasta inteira no editor e leia README.md.
+// No Windows: iniciar.cmd e verificar.cmd; Linux/macOS: sh iniciar.sh e sh verificar.sh.
+// Este arquivo permanece somente para orientar quem usava o caminho antigo.

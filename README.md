@@ -25,7 +25,7 @@ Materiais destinados aos estudantes da disciplina de Programação Orientada a O
 
 As pastas reúnem os materiais de acompanhamento de cada encontro. Os encontros 11 a 16 desenvolvem progressivamente o mesmo Projeto 3, um estacionamento: herança, abstração e polimorfismo, interfaces, exceções, coleções, organização com Maven e integração final.
 
-Nos materiais dos encontros 08 a 16, os estudantes encontram enunciados, perguntas, critérios e espaços para registrar previsões e resultados. Os arquivos Java de orientação contêm somente comentários; cada estudante deve escrever integralmente sua implementação. Soluções, respostas e materiais reservados do professor não fazem parte dessas entregas públicas.
+Nos encontros 11 a 16, cada pasta contém um projeto inicial compilável, base dos conhecimentos anteriores, tarefas localizadas por TODO, roteiro passo a passo e verificações de progresso. Comece pelo README da aula e execute iniciar.cmd e verificar.cmd no Windows, ou os scripts .sh em Linux/macOS. Complete os pontos novos durante a explicação e registre suas previsões, resultados e justificativas. As investigações permanecem sem respostas; guias e soluções finais do professor ficam separados. Os encontros 08 a 10 conservam seus materiais anteriores de orientação.
 
 ## Requisitos gerais
 

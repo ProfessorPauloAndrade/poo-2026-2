@@ -1,14 +1,101 @@
-# Encontro 12 — Atividade do Projeto 3
+# Encontro 12 — construção guiada: Abstração e polimorfismo
 
-## Objetivo e contexto
+## O que você terá ao final
 
-Construa o primeiro recorte do estacionamento: veículos de categorias diferentes e histórico de visitas já concluídas, usando um cálculo comum. Trabalhe em uma pasta/repositório próprio poo-projeto-3-estacionamento, preservando o estudo de herança da aula anterior.
+Você recebe a hierarquia de veículos já construída. Agora precisa impedir a criação direta do tipo geral, calcular horas iniciadas com a tarifa da categoria e guardar visitas já concluídas. A aula termina com histórico e total; ainda não há visita aberta nem lavagem.
 
-Use carro ABC1D23/Hatch e moto XYZ9K87/Urbana. Tarifas fictícias: R$ 10 e R$ 6 por hora iniciada, respectivamente. A duração é informada pelo operador, em minutos inteiros positivos. O tipo geral não deve permitir criação direta; as categorias devem cumprir o compromisso de tarifa. Não há entrada aberta, lavagem, relógio, banco de dados ou pagamento nesta etapa.
+Carro: R$ 10 por hora iniciada; moto: R$ 6; lavagem, quando introduzida na aula 13, R$ 20 fixos. Minutos são informados manualmente. Dados são fictícios e ficam em memória. Placa identifica o cadastro e não muda; modelo pode mudar. Use os cadastros comuns ABC1D23/Hatch e XYZ9K87/Urbana. As atividades abaixo distinguem exemplos comuns da investigação que você deve resolver.
 
-O registro concluído guarda número próprio, referência ao veículo, duração e valor calculado. Uma solicitação com placa ausente ou duração inválida é recusada antes de criar registro e consumir número. O histórico deve preservar os valores lançados. Construções diretas deste recorte usam os dados válidos fornecidos; proteções arbitrárias e falhas de conversão serão aprofundadas com exceções.
+## Preparação — antes de editar
 
-Recursos: JDK 21 ou posterior, VS Code, terminal e Git. Escreva integralmente a implementação, sem esqueleto pronto. Siga as práticas no momento indicado pelo professor.
+Siga a primeira execução no [README](README.md). Salve o resultado inicial do verificador e uma cópia da etapa anterior. Leia o console para identificar as chamadas; não reescreva o menu inteiro. Abra os arquivos desta aula, procure `TODO 12.` e associe-os à tabela. Você preencherá os corpos e as pequenas alterações indicadas, mantendo a base conhecida. Os experimentos que devem falhar na compilação ficam fora de src e testes.
+
+## Onde trabalhar
+
+| TODO | Arquivo | Trecho a completar ou revisar |
+|---|---|---|
+| 12.1 | `src/Veiculo.java` | declaração do tipo e getTarifaHora |
+| 12.2 | `src/Veiculo.java` | calcularTarifa(int minutos) |
+| 12.3 | `src/Permanencia.java` | construtor |
+| 12.4 | `src/Estacionamento.java` | registrarPermanencia |
+| 12.5 | `src/Estacionamento.java` | totalizarPermanencias |
+
+## Sequência de construção
+
+### TODO 12.1 — declaração do tipo e getTarifaHora
+
+Abra `src/Veiculo.java`.
+
+Substitua a implementação provisória do contrato de tarifa por uma obrigação abstrata e impeça criação direta da base. Carro/Moto já fornecem a tarifa. Faça os experimentos inválidos da prática em pasta separada, fora de src.
+
+**Como conferir:** Cheque 12.1; registre também as mensagens dos dois experimentos de compilação.
+
+Antes de seguir, registre no roteiro: entrada usada, previsão, resultado observado e linha/método alterado. Não marque concluído apenas porque compila.
+
+### TODO 12.2 — calcularTarifa(int minutos)
+
+Abra `src/Veiculo.java`.
+
+Complete o cálculo comum para minutos positivos usando a tarifa obtida do objeto real. Considere horas iniciadas e preserve a fração antes do arredondamento. Não escolha categoria por if, cast ou instanceof no cálculo.
+
+**Como conferir:** Cheque 12.2 compara 60 e 61 min do carro; amplie com 1, 75 e 120 e com moto.
+
+Antes de seguir, registre no roteiro: entrada usada, previsão, resultado observado e linha/método alterado. Não marque concluído apenas porque compila.
+
+### TODO 12.3 — construtor
+
+Abra `src/Permanencia.java`.
+
+Inicialize os campos finais declarados a partir dos argumentos válidos. Guarde o valor da visita concluída nesse momento. Preserve a referência ao veículo; não crie outra categoria a partir de sua placa.
+
+**Como conferir:** Cheque 12.3: número 1, moto, 20 minutos, valor consultável.
+
+Antes de seguir, registre no roteiro: entrada usada, previsão, resultado observado e linha/método alterado. Não marque concluído apenas porque compila.
+
+### TODO 12.4 — registrarPermanencia
+
+Abra `src/Estacionamento.java`.
+
+Use a busca fornecida. Recuse placa ausente e minutos não positivos com false antes de criar registro ou consumir número. Na aceitação, inclua uma visita concluída no histórico e avance a sequência uma vez.
+
+**Como conferir:** Cheque 12.4: tentativa com zero seguida de 75; primeira visita aceita continua número 1.
+
+Antes de seguir, registre no roteiro: entrada usada, previsão, resultado observado e linha/método alterado. Não marque concluído apenas porque compila.
+
+### TODO 12.5 — totalizarPermanencias
+
+Abra `src/Estacionamento.java`.
+
+Percorra as permanências e acumule os valores já registrados. A consulta não cria visita, não recalcula pela categoria no gestor e não muda numeração.
+
+**Como conferir:** Cheque 12.5: carro 75 e moto 20 totalizam 26 no exemplo comum; confira lista separadamente.
+
+Antes de seguir, registre no roteiro: entrada usada, previsão, resultado observado e linha/método alterado. Não marque concluído apenas porque compila.
+
+## Acompanhamento durante a aula — 210 minutos com pausa
+
+Use os blocos abaixo para acompanhar a explicação e as práticas; os TODOs ocupam os momentos de construção desses blocos, sem acrescentar outro trabalho de 210 minutos. As práticas e a investigação conservam o tempo previsto. Não tente digitar o projeto inteiro enquanto acompanha os slides.
+
+| Intervalo | Min | Slides finais | Explicar → praticar → conferir |
+|---|---:|---|---|
+| 0–20 | 20 | 1–8 | abertura, percurso, produto e previsão individual de 2 min com retorno |
+| 20–50 | 30 | 9–14 | abstração: demonstração 18 min, prática 1 de 10, correção 2 |
+| 50–90 | 40 | 15–21 | referências/despacho: explicar e demonstrar 25, prática 2 de 12, correção 3 |
+| 90–100 | 10 | 22 | pausa |
+| 100–140 | 40 | 23–30 | cálculo: 25 de demonstração/rastreamento, prática 3 de 12, correção 3 |
+| 140–165 | 25 | 31–37 | registro: 15 de explicação/demonstração, desenho de 8, correção 2 |
+| 165–185 | 20 | 38–45 | instanceof/parâmetros: 10 de explicação, prática 4 de 8, retorno 2 |
+| 185–205 | 20 | 46–51 | laboratório de 18 e devolutiva de 2; diagrama/limites abertos como apoio |
+| 205–210 | 5 | 52–55 | síntese 2, commit 1, saída individual 2; fontes para consulta posterior |
+
+
+## Conferência antes da investigação
+
+Rode o verificador e identifique a primeira pendência. Execute também o menu com entradas correspondentes. Um cheque automático cobre apenas os casos nomeados, não todas as exigências da aula. As tarefas de compilação experimental, leitura visual de recibo, integração do menu, acesso entre pacotes e documentação precisam de evidências próprias quando indicadas. Releia os critérios antes de marcar a etapa concluída.
+
+## Atividades e investigação — respostas do estudante
+
+As práticas seguintes usam o esqueleto acima. Complete a etapa relacionada no momento indicado; produza suas previsões, testes e justificativas. As tabelas permanecem vazias para registrar o que você verificou.
 
 ## Prática 1 — compromisso e compilação (10 min, dupla)
 

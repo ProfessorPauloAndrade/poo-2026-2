@@ -1,7 +1,4 @@
-/*
-Encontro 12 — orientacao para implementacao integral pelo estudante.
-Leia os requisitos, construa suas classes e documente as decisoes.
-Registre os experimentos de compilacao, calculo, historico e referencias.
-Preserve sua etapa da aula anterior e versiona o inicio do Projeto 3.
-Este arquivo nao fornece imports, classes, atributos ou assinaturas.
-*/
+// Encontro 12: o projeto inicial agora esta em src/.
+// Abra a pasta inteira no editor e leia README.md.
+// No Windows: iniciar.cmd e verificar.cmd; Linux/macOS: sh iniciar.sh e sh verificar.sh.
+// Este arquivo permanece somente para orientar quem usava o caminho antigo.

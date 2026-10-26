@@ -1,10 +1,4 @@
-/*
-Encontro 16 — Orientacoes para integrar e concluir seu estacionamento.
-Preserve a versao anterior e escreva integralmente suas alteracoes.
-Registre previsoes, estado inicial, acoes, resultados e interpretacoes.
-Investigue os relatos sem presumir que sejam defeitos confirmados.
-Teste a preservacao apos cada melhoria e prepare a entrega reproduzivel.
-Documente limites e pendencias, conforme a atividade do encontro.
-Este arquivo fornece somente comentarios, sem implementacao ou assinaturas.
-Espaco para suas decisoes: ____________________
-*/
+// Encontro 16: o projeto inicial agora esta em src/.
+// Abra a pasta inteira no editor e leia README.md.
+// No Windows: iniciar.cmd e verificar.cmd; Linux/macOS: sh iniciar.sh e sh verificar.sh.
+// Este arquivo permanece somente para orientar quem usava o caminho antigo.

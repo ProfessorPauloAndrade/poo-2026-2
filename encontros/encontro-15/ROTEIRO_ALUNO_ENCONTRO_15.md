@@ -1,4 +1,56 @@
-# Encontro 15 — Perguntas de acompanhamento
+# Encontro 15 — meu registro da prática
+
+Nome(s): ____________________  Data: ____________________  Versão/commit inicial: ____________________
+
+## Primeira execução
+
+Pasta aberta: ____________________
+Versões de java/javac: ____________________
+Comando de início e saída observada: ____________________
+Resumo inicial da verificação: ____________________
+Diferença em relação à versão anterior: ____________________
+
+## Registro por TODO
+
+Não escreva apenas OK. Registre o dado usado, o que esperava e o que ocorreu; se divergir, preserve a hipótese inicial. O material guiado informa o arquivo e o critério de cada etapa.
+
+| TODO | Entrada/caso e previsão | Observação concreta | Arquivo/método alterado | Conclusão ou pendência |
+|---|---|---|---|---|
+| 15.1 | ___ | ___ | ___ | ___ |
+| 15.2 | ___ | ___ | ___ | ___ |
+| 15.3 | ___ | ___ | ___ | ___ |
+| 15.4 | ___ | ___ | ___ | ___ |
+| 15.5 | ___ | ___ | ___ | ___ |
+| 15.6 | ___ | ___ | ___ | ___ |
+
+## Antes e depois de uma recusa
+
+| Tentativa | Estado antes | Motivo/tipo observado | Estado depois | Operação válida posterior e resultado |
+|---|---|---|---|---|
+| ___ | ___ | ___ | ___ | ___ |
+| ___ | ___ | ___ | ___ | ___ |
+
+## Amplie um caso do verificador
+
+Caso existente escolhido: ____________________
+Qual situação ele ainda não cobre: ____________________
+Entrada nova, previsão e critério: ____________________
+Resultado, interpretação e eventual correção: ____________________
+
+## Critérios de entrega
+
+- [ ] Completei as tarefas novas e mantive os comportamentos anteriores.
+- [ ] Conferi o resultado dos cheques e investiguei divergências.
+- [ ] Fiz as verificações manuais indicadas, incluindo compilação experimental quando solicitada.
+- [ ] Resolvi a investigação do material com previsões próprias e evidências.
+- [ ] Consigo explicar uma decisão e um caso que detectaria uma implementação incorreta.
+- [ ] Entrego fontes e registros, sem build, target ou classes geradas; preservei a etapa anterior.
+
+Resumo final e commit: ____________________
+Limites dos testes e pendências declaradas: ____________________
+
+## Perguntas para explicar o que implementei
+
 
 Registre previsões e confronte-as com o comportamento da sua implementação.
 

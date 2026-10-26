@@ -1,10 +1,89 @@
-# Encontro 16 — Integração e conclusão do Projeto 3
+# Encontro 16 — construção guiada: Integração e conclusão
 
-## Objetivo e recursos
+## O que você terá ao final
 
-Conclua sua implementação do estacionamento já desenvolvido. Preserve a etapa anterior no mesmo repositório do Projeto 3. Use JDK 21 ou posterior, VS Code, terminal, Maven e Git. Escreva integralmente suas alterações e testes; este material não contém implementação, configuração resolvida ou gabarito.
+Você recebe a versão intermediária funcional da aula 15. Agora vai escrever uma jornada de integração, extrair duas responsabilidades pequenas e verificar entrega reproduzível. As operações já aprendidas permanecem disponíveis. O trabalho novo está nos TODOs, nos testes e na justificativa das mudanças; não há novo sistema a construir.
 
-Faça previsões antes de executar. Registre estado inicial, ação, resultado esperado, resultado observado e interpretação. Não use somente “OK” como evidência. Dados, tarifas e regras continuam os definidos em aula; não acrescente funcionalidades fora do escopo para substituir verificações pendentes.
+Carro: R$ 10 por hora iniciada; moto: R$ 6; lavagem, quando introduzida na aula 13, R$ 20 fixos. Minutos são informados manualmente. Dados são fictícios e ficam em memória. Placa identifica o cadastro e não muda; modelo pode mudar. Use os cadastros comuns ABC1D23/Hatch e XYZ9K87/Urbana. As atividades abaixo distinguem exemplos comuns da investigação que você deve resolver.
+
+## Preparação — antes de editar
+
+Siga a primeira execução no [README](README.md). Salve o resultado inicial do verificador e uma cópia da etapa anterior. Leia o console para identificar as chamadas; não reescreva o menu inteiro. Abra os arquivos desta aula, procure `TODO 16.` e associe-os à tabela. Você preencherá os corpos e as pequenas alterações indicadas, mantendo a base conhecida. Os experimentos que devem falhar na compilação ficam fora de src e testes.
+
+## Onde trabalhar
+
+| TODO | Arquivo | Trecho a completar ou revisar |
+|---|---|---|
+| 16.1 | `src/test/java/br/edu/uva/estacionamento/app/MeuTeste.java` | montarJornada |
+| 16.2 | `src/main/java/br/edu/uva/estacionamento/modelo/Estacionamento.java` | possuiCobrancaDaPlaca e removerVeiculo |
+| 16.3 | `src/main/java/br/edu/uva/estacionamento/app/AplicacaoConsole.java` | apresentarAbertas |
+| 16.4 | `README_ENTREGA.md e pom.xml` | entrega em cópia independente |
+
+## Sequência de construção
+
+### TODO 16.1 — montarJornada
+
+Abra `src/test/java/br/edu/uva/estacionamento/app/MeuTeste.java`.
+
+Use a API pública já funcional para montar o cenário descrito no comentário e devolva o gestor. Não altere a verificação para acomodar um defeito. Acrescente seus casos de recusa e referência em testes próprios ou no roteiro.
+
+**Como conferir:** Cheque 16.1 compara jornada conhecida, histórico, total, placas e nova visita distinta. Os resultados da investigação inédita continuam a seu cargo.
+
+Antes de seguir, registre no roteiro: entrada usada, previsão, resultado observado e linha/método alterado. Não marque concluído apenas porque compila.
+
+### TODO 16.2 — possuiCobrancaDaPlaca e removerVeiculo
+
+Abra `src/main/java/br/edu/uva/estacionamento/modelo/Estacionamento.java`.
+
+Extraia a pergunta sobre vínculo com histórico para o auxiliar marcado. Substitua o percurso duplicado na remoção por essa consulta. Preserve guarda de ativa, motivo e ordem das recusas. Não acrescente coleção persistente ou mude regra para facilitar o teste.
+
+**Como conferir:** Cheque 16.2: sem vínculo/com cobrança e remoção recusada. Revise também o código para confirmar que removerVeiculo usa o auxiliar.
+
+Antes de seguir, registre no roteiro: entrada usada, previsão, resultado observado e linha/método alterado. Não marque concluído apenas porque compila.
+
+### TODO 16.3 — apresentarAbertas
+
+Abra `src/main/java/br/edu/uva/estacionamento/app/AplicacaoConsole.java`.
+
+Complete o auxiliar que a opção 3 já chama. Obtenha a listagem uma vez, trate lista vazia e apresente cada aberta sem extrair preço. Consulta não deve encerrar visita nem criar cobrança.
+
+**Como conferir:** Cheque 16.3: mensagem vazia, descrição ABERTA, histórico preservado; confira uma única consulta no método.
+
+Antes de seguir, registre no roteiro: entrada usada, previsão, resultado observado e linha/método alterado. Não marque concluído apenas porque compila.
+
+### TODO 16.4 — entrega em cópia independente
+
+Abra `README_ENTREGA.md e pom.xml`.
+
+A configuração 0.16.0 está fornecida. Complete o registro de ambiente, comandos, casos, resultados e limites. Construa em outra pasta sem build/target, execute o JAR produzido e peça revisão da instrução por outra dupla.
+
+**Como conferir:** mvn clean package, JAR atual, transcrição e instruções executáveis. Os cheques Java não substituem documentação, investigação ou revisão por colega.
+
+Antes de seguir, registre no roteiro: entrada usada, previsão, resultado observado e linha/método alterado. Não marque concluído apenas porque compila.
+
+## Acompanhamento durante a aula — 210 minutos com pausa
+
+Use os blocos abaixo para acompanhar a explicação e as práticas; os TODOs ocupam os momentos de construção desses blocos, sem acrescentar outro trabalho de 210 minutos. As práticas e a investigação conservam o tempo previsto. Não tente digitar o projeto inteiro enquanto acompanha os slides.
+
+| Intervalo | Min | Slides | Exposição, prática e retorno |
+|---|---:|---|---|
+| 0–20 | 20 | 1–7 | contexto e panorama 10, retomada 8, previsão individual 2 |
+| 20–60 | 40 | 8–17 | integração guiada 25, prática 1 de 12, devolutiva 3 |
+| 60–90 | 30 | 18–25 | regressão 18, prática 2 de 10, síntese 2 |
+| 90–100 | 10 | 26 | pausa |
+| 100–140 | 40 | 27–35 | diagnóstico/refatoração 25, prática 3 de 12, devolutiva 3 |
+| 140–180 | 40 | 36–43 | construção/entrega 20, prática 4 de 15, conferência 5 |
+| 180–200 | 20 | 44–47 | investigação inédita 15, discussão 5 |
+| 200–210 | 10 | 48–51 | síntese 3, commit/registro 2, saída individual 4, fontes/continuidade 1 |
+
+
+## Conferência antes da investigação
+
+Rode o verificador e identifique a primeira pendência. Execute também o menu com entradas correspondentes. Um cheque automático cobre apenas os casos nomeados, não todas as exigências da aula. As tarefas de compilação experimental, leitura visual de recibo, integração do menu, acesso entre pacotes e documentação precisam de evidências próprias quando indicadas. Releia os critérios antes de marcar a etapa concluída.
+
+## Atividades e investigação — respostas do estudante
+
+As práticas seguintes usam o esqueleto acima. Complete a etapa relacionada no momento indicado; produza suas previsões, testes e justificativas. As tabelas permanecem vazias para registrar o que você verificou.
 
 ## Prática 1 — Jornada completa — 12 minutos, em duplas
 
