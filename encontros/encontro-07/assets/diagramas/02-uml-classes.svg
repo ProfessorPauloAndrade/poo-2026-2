@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1000" viewBox="0 0 1800 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Diagrama de classes UML simplificado do Projeto Pedido</title>
+  <desc id="desc">Pedido compõe ItemPedido, que possui associação com Produto.</desc>
+  <defs><marker id="nav" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#1769aa"/></marker></defs>
+  <rect width="1800" height="1000" fill="#ffffff"/>
+  <text x="900" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="46" font-weight="700" fill="#17324d">Diagrama de classes do Projeto 2</text>
+  <g font-family="Arial, sans-serif" fill="#17324d" stroke="#17324d" stroke-width="4">
+    <rect x="100" y="250" width="430" height="410" fill="#fff8e1"/>
+    <line x1="100" y1="340" x2="530" y2="340"/><line x1="100" y1="500" x2="530" y2="500"/>
+    <text x="315" y="310" text-anchor="middle" font-size="38" font-weight="700" stroke="none">Pedido</text>
+    <text x="130" y="400" font-size="29" stroke="none">- numero: int</text>
+    <text x="130" y="455" font-size="29" stroke="none">- item: ItemPedido</text>
+    <text x="130" y="565" font-size="28" stroke="none">+ calcularTotal(): double</text>
+    <text x="130" y="620" font-size="28" stroke="none">+ exibir(): void</text>
+    <rect x="690" y="250" width="430" height="410" fill="#e8f1fb"/>
+    <line x1="690" y1="340" x2="1120" y2="340"/><line x1="690" y1="500" x2="1120" y2="500"/>
+    <text x="905" y="310" text-anchor="middle" font-size="38" font-weight="700" stroke="none">ItemPedido</text>
+    <text x="720" y="400" font-size="29" stroke="none">- produto: Produto</text>
+    <text x="720" y="455" font-size="29" stroke="none">- quantidade: int</text>
+    <text x="720" y="565" font-size="28" stroke="none">+ calcularSubtotal(): double</text>
+    <text x="720" y="620" font-size="28" stroke="none">+ exibir(): void</text>
+    <rect x="1280" y="250" width="430" height="410" fill="#e8f4ea"/>
+    <line x1="1280" y1="340" x2="1710" y2="340"/><line x1="1280" y1="500" x2="1710" y2="500"/>
+    <text x="1495" y="310" text-anchor="middle" font-size="38" font-weight="700" stroke="none">Produto</text>
+    <text x="1310" y="400" font-size="29" stroke="none">- codigo: int</text>
+    <text x="1310" y="455" font-size="29" stroke="none">- preco: double</text>
+    <text x="1310" y="565" font-size="28" stroke="none">+ getPreco(): double</text>
+    <text x="1310" y="620" font-size="28" stroke="none">+ alterarPreco(...): boolean</text>
+  </g>
+  <polygon points="530,455 565,420 600,455 565,490" fill="#17324d"/>
+  <line x1="600" y1="455" x2="690" y2="455" stroke="#17324d" stroke-width="5"/>
+  <text x="570" y="735" text-anchor="middle" font-family="Arial, sans-serif" font-size="29" fill="#17324d">composição</text>
+  <text x="610" y="415" font-family="Arial, sans-serif" font-size="28" fill="#17324d">1</text>
+  <text x="650" y="415" font-family="Arial, sans-serif" font-size="28" fill="#17324d">1</text>
+  <line x1="1120" y1="455" x2="1280" y2="455" stroke="#1769aa" stroke-width="5" marker-end="url(#nav)"/>
+  <text x="1200" y="415" text-anchor="middle" font-family="Arial, sans-serif" font-size="29" fill="#1769aa">associação</text>
+  <text x="1150" y="500" font-family="Arial, sans-serif" font-size="28" fill="#1769aa">1</text>
+  <text x="1245" y="500" font-family="Arial, sans-serif" font-size="28" fill="#1769aa">1</text>
+  <text x="900" y="865" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" fill="#425466">O losango preenchido indica que Pedido cria e controla ItemPedido.</text>
+</svg>

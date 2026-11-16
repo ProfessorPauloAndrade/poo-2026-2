@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Diagrama de objetos: associação entre ItemPedido e Produto</title>
+  <desc id="desc">O objeto item aponta para o objeto cafe por meio do atributo produto.</desc>
+  <defs><marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12 z" fill="#1769aa"/></marker></defs>
+  <rect width="1600" height="900" fill="#f8fbff"/>
+  <text x="800" y="105" text-anchor="middle" font-family="Arial, sans-serif" font-size="48" font-weight="700" fill="#17324d">Um ItemPedido aponta para um Produto existente</text>
+  <g font-family="Arial, sans-serif" fill="#17324d">
+    <rect x="150" y="270" width="470" height="350" rx="18" fill="#e8f4ea" stroke="#2e7d32" stroke-width="5"/>
+    <line x1="150" y1="370" x2="620" y2="370" stroke="#2e7d32" stroke-width="5"/>
+    <text x="385" y="334" text-anchor="middle" font-size="42" font-weight="700">cafe : Produto</text>
+    <text x="205" y="455" font-size="34">codigo = 101</text>
+    <text x="205" y="525" font-size="34">preco = 5.50</text>
+    <rect x="980" y="270" width="470" height="350" rx="18" fill="#e8f1fb" stroke="#1769aa" stroke-width="5"/>
+    <line x1="980" y1="370" x2="1450" y2="370" stroke="#1769aa" stroke-width="5"/>
+    <text x="1215" y="334" text-anchor="middle" font-size="42" font-weight="700">item : ItemPedido</text>
+    <text x="1035" y="455" font-size="34">quantidade = 3</text>
+    <text x="1035" y="525" font-size="34">produto = cafe</text>
+  </g>
+  <line x1="965" y1="445" x2="640" y2="445" stroke="#1769aa" stroke-width="8" marker-end="url(#arrow)"/>
+  <text x="800" y="405" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#1769aa">atributo produto referencia cafe</text>
+  <text x="800" y="755" text-anchor="middle" font-family="Arial, sans-serif" font-size="34" fill="#425466">Há um único objeto Produto: o item não copia seu preço.</text>
+</svg>
