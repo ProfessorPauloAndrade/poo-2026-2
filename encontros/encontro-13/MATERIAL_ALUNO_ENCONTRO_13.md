@@ -1,168 +1,396 @@
-# Encontro 13 — construção guiada: Interfaces e cobranças
+# Encontro 13 — Interfaces: um contrato para cobranças diferentes
 
-## O que você terá ao final
+Material do aluno. Projeto 3: estacionamento.
 
-Você recebe a hierarquia e o cálculo da etapa anterior. A visita passa a nascer aberta, com duração e valor ainda ausentes. Você completará a transição para encerrada, conectará permanência e lavagem ao contrato Cobravel e integrará entrada, saída, recibos e histórico.
+## 1. O que você vai construir
 
-Carro: R$ 10 por hora iniciada; moto: R$ 6; lavagem, quando introduzida na aula 13, R$ 20 fixos. Minutos são informados manualmente. Dados são fictícios e ficam em memória. Placa identifica o cadastro e não muda; modelo pode mudar. Use os cadastros comuns ABC1D23/Hatch e XYZ9K87/Urbana. As atividades abaixo distinguem exemplos comuns da investigação que você deve resolver.
+Até a aula 12, o programa só registrava uma visita depois que o veículo ia embora, e só cobrava estacionamento. Nesta aula ele passa a fazer duas coisas novas:
 
-## Preparação — antes de editar
+1. **Registrar a entrada antes da saída.** A visita nasce aberta, sem minutos e sem valor. Quando o operador informa a saída, a mesma visita é encerrada e o valor é calculado.
+2. **Cobrar lavagens.** A lavagem custa R$ 20 fixos e aparece no mesmo histórico das permanências.
 
-Siga a primeira execução no [README](README.md). Salve o resultado inicial do verificador e uma cópia da etapa anterior. Leia o console para identificar as chamadas; não reescreva o menu inteiro. Abra os arquivos desta aula, procure `TODO 13.` e associe-os à tabela. Você preencherá os corpos e as pequenas alterações indicadas, mantendo a base conhecida. Os experimentos que devem falhar na compilação ficam fora de src e testes.
+Para isso você vai usar cinco conceitos de Java:
 
-## Onde trabalhar
+| Conceito | Para que serve no projeto |
+|---|---|
+| Classes wrapper (`Integer`, `Double`) e `null` | guardar minutos e valor que ainda não existem |
+| Interface | reunir `Permanencia` e `Lavagem` por um contrato comum |
+| Polimorfismo por interface | somar qualquer cobrança com um único laço |
+| Sobrecarga de métodos | ter dois métodos de recibo com o mesmo nome |
+| Comparação de `String` | localizar e ordenar placas corretamente |
 
-| TODO | Arquivo | Trecho a completar ou revisar |
+## 2. As regras do estacionamento nesta etapa
+
+- **Tarifas:** carro R$ 10 e moto R$ 6 por hora iniciada. Lavagem R$ 20 fixos, para qualquer veículo.
+- **Entrada:** só para placa cadastrada e sem visita aberta. Cada placa tem no máximo uma visita aberta.
+- **Saída:** o operador informa os minutos, inteiros e positivos. Só então o valor é calculado.
+- **Lavagem:** exige visita aberta, pode se repetir e não encerra a visita.
+- **Histórico:** guarda apenas cobranças finalizadas. Visita aberta não entra no total.
+- **Recusa:** nesta etapa, uma operação recusada devolve `false` ou `null` e não altera nada. As exceções chegam na aula 14.
+
+Use sempre os dois cadastros de exemplo: carro `ABC1D23` (Hatch) e moto `XYZ9K87` (Urbana). Os dados são fictícios e ficam em memória.
+
+## 3. Antes de começar
+
+1. Siga a primeira execução descrita no `README.md` do projeto: confira `java -version` e `javac -version`, execute `iniciar` e depois `verificar`.
+2. O verificador deve mostrar `RESUMO OK=0 PENDENTE=6 REVER=0`. Isso é o esperado antes do trabalho.
+3. Guarde uma cópia ou um commit da sua versão da aula 12.
+4. Procure no código por `TODO 13.`. São sete tarefas, numeradas de 13.1 a 13.7.
+
+**Como ler o resultado do verificador:**
+
+| Palavra | Significado |
+|---|---|
+| OK | o caso passou |
+| PENDENTE | a tarefa ainda não foi implementada |
+| REVER | o código executou, mas o resultado está diferente do esperado |
+
+Cada método pendente lança `UnsupportedOperationException` com o número da tarefa. Ao implementar, apague essa linha. Não a troque por `return null`, `return 0` ou `return true` só para o aviso sumir.
+
+## 4. Mapa do projeto: o que já vem pronto e o que você completa
+
+| Arquivo em `src/` | Já vem pronto | Você completa |
 |---|---|---|
-| 13.1 | `src/Permanencia.java` | estaEncerrada, encerrar, getDescricao e calcularValor |
-| 13.2 | `src/Permanencia.java` e `src/Lavagem.java` | declaração de implementação e operações do contrato |
-| 13.3 | `src/Lavagem.java` | construtor e calcularValor |
-| 13.4 | `src/Estacionamento.java` | registrarEntrada, registrarSaida e registrarLavagem |
-| 13.5 | `src/Estacionamento.java` | totalizarCobrancas |
-| 13.6 | `src/AplicacaoConsole.java` | duas versões de imprimirRecibo |
-| 13.7 | `src/AplicacaoConsole.java` | mesmaPlaca e compararPlacas |
+| `Veiculo.java`, `Carro.java`, `Moto.java` | tudo, igual à aula 12 | nada |
+| `Cobravel.java` | a interface, com as quatro operações | nada: leia com atenção |
+| `Permanencia.java` | atributos, construtor de dois parâmetros, `getMinutos`, `getNumero`, `getPlaca`, `toString` | `estaEncerrada`, `encerrar`, `getDescricao`, `calcularValor` (13.1) e a ligação com `Cobravel` (13.2) |
+| `Lavagem.java` | atributos, `getNumero`, `getPlaca`, `getDescricao`, `toString` | a ligação com `Cobravel` (13.2), o construtor e `calcularValor` (13.3) |
+| `Estacionamento.java` | as três listas, cadastro, `consultarVeiculo`, `consultarAtiva`, `listarVeiculos` | `registrarEntrada`, `registrarSaida`, `registrarLavagem` (13.4) e `totalizarCobrancas` (13.5) |
+| `AplicacaoConsole.java` | o menu inteiro | os dois `imprimirRecibo` (13.6), `mesmaPlaca` e `compararPlacas` (13.7) |
 
-## Sequência de construção
+**Como os tipos se relacionam ao final da aula:**
 
-### TODO 13.1 — estaEncerrada, encerrar, getDescricao e calcularValor
+```text
+AplicacaoConsole  --chama-->  Estacionamento
+Estacionamento    --guarda--> lista de Veiculo, lista de Permanencia (ativas),
+                              lista de Cobravel (cobrancas)
+Permanencia  --implements-->  Cobravel
+Lavagem      --implements-->  Cobravel
+Permanencia e Lavagem  --usam-->  Veiculo  (Carro ou Moto)
+```
 
-Abra `src/Permanencia.java`.
+## 5. Parte 1 — Guardar um número que ainda não existe (TODO 13.1)
 
-Conserve ausência de minutos/valor enquanto aberta. Nesta versão, encerramento inválido ou repetido retorna false sem mudar o objeto. Para encerrar, use a regra de tarifa já fornecida e registre duração/valor na mesma visita. Valor de aberta não deve entrar em soma; use a convenção de ausência desta etapa.
+### A ideia
 
-**Como conferir:** Cheque 13.1; desenhe a mesma referência antes/depois e investigue null sem unboxing prematuro.
+Quando a moto entra, o programa sabe o número da visita e o veículo. Ainda não sabe os minutos nem o valor. Não podemos gravar zero, porque zero é um número de verdade: a visita pareceria encerrada sem custo.
 
-Antes de seguir, registre no roteiro: entrada usada, previsão, resultado observado e linha/método alterado. Não marque concluído apenas porque compila.
+Em Java, a ausência de valor se escreve `null`. O problema é que `int` e `double` são tipos primitivos e não aceitam `null`.
 
-### TODO 13.2 — declaração de implementação e operações do contrato
+### Conceitos
 
-Abra `src/Permanencia.java` e `src/Lavagem.java`.
+**Classe wrapper.** É uma classe da biblioteca Java que guarda um valor primitivo dentro de um objeto. `Integer` guarda um `int`; `Double` guarda um `double`. Como são classes, uma variável desses tipos pode valer `null`.
 
-Leia Cobravel.java fornecido. Conecte os dois tipos ao contrato e confira acesso público, nomes, parâmetros e retornos das quatro operações. Compare uma base de veículos com esse papel de cobrança.
+**Boxing.** É a conversão de primitivo para wrapper, de `int` para `Integer`. O compilador faz sozinho.
 
-**Como conferir:** Cheque 13.2; remova uma obrigação apenas em cópia isolada e registre o erro de compilação.
+**Unboxing.** É a conversão inversa, de `Integer` para `int`. O compilador também faz sozinho.
 
-Antes de seguir, registre no roteiro: entrada usada, previsão, resultado observado e linha/método alterado. Não marque concluído apenas porque compila.
+**O risco.** Fazer unboxing de uma variável que vale `null` interrompe o programa com `NullPointerException`. Java não transforma `null` em zero.
 
-### TODO 13.3 — construtor e calcularValor
+Exemplo fora do projeto, para experimentar:
 
-Abra `src/Lavagem.java`.
+```java
+Integer nota = null;          // ainda não foi lançada
+if (nota == null) {
+    System.out.println("Nota ainda nao lancada");
+} else {
+    int valor = nota;         // unboxing: só aqui, onde a nota existe
+    System.out.println(valor + 1);
+}
+```
 
-Guarde o número e o veículo recebidos e use o preço fixo declarado. O serviço não é subclasse de Veiculo e não altera a duração ou o valor da permanência.
+### O que já vem pronto
 
-**Como conferir:** Cheque 13.3: lavagem número 3 da moto custa 20, independentemente de minutos.
+Em `Permanencia.java`, os atributos já são `Integer minutos` e `Double valorCobrado`, e o construtor recebe só número e veículo. Uma visita recém-criada tem os dois atributos em `null`. Localize essas linhas e leia antes de continuar.
 
-Antes de seguir, registre no roteiro: entrada usada, previsão, resultado observado e linha/método alterado. Não marque concluído apenas porque compila.
+### Sua tarefa
 
-### TODO 13.4 — registrarEntrada, registrarSaida e registrarLavagem
+Complete quatro métodos de `Permanencia`:
 
-Abra `src/Estacionamento.java`.
+| Método | O que deve fazer |
+|---|---|
+| `estaEncerrada` | responder se a visita já tem minutos registrados |
+| `encerrar` | recusar se a visita já foi encerrada ou se a duração não é positiva; caso contrário, calcular o valor com o veículo e registrar minutos e valor |
+| `getDescricao` | devolver um texto para visita encerrada, com os minutos, e outro para visita aberta |
+| `calcularValor` | devolver o valor cobrado de uma visita encerrada |
 
-Complete uma operação por vez usando as buscas disponíveis. Entrada aceita cria uma aberta; duplicada retorna false. Saída recusada retorna null e preserva a visita; aceita encerra a mesma referência e a transfere para o histórico. Lavagem exige aberta e cria uma cobrança independente sem fechar a visita. Consuma número apenas quando criar registro aceito.
+Cuidados:
 
-**Como conferir:** Cheque integrado 13.4/13.5; observe ativas e histórico após cada passo, não apenas o total.
+- Em `encerrar`, faça todas as verificações antes de alterar qualquer atributo. Uma recusa não pode deixar a visita pela metade.
+- A saída não cria outra `Permanencia`. É o mesmo objeto que muda de estado.
+- Não devolva zero para representar visita aberta.
 
-Antes de seguir, registre no roteiro: entrada usada, previsão, resultado observado e linha/método alterado. Não marque concluído apenas porque compila.
+### Como conferir
 
-### TODO 13.5 — totalizarCobrancas
+Crie uma permanência número 1 para o carro `ABC1D23` e faça as chamadas nesta ordem:
 
-Abra `src/Estacionamento.java`.
+| Chamada | Resultado esperado |
+|---|---|
+| `estaEncerrada()` | `false` |
+| `getMinutos()` | `null` |
+| `encerrar(0)` | `false`, e a visita continua aberta |
+| `encerrar(75)` | `true` |
+| `calcularValor()` | `20.0` |
+| `encerrar(20)` | `false`, e a visita continua com 75 minutos |
 
-Some pelo contrato comum sem selecionar concretamente permanência ou lavagem. Apenas cobranças finalizadas entram no histórico.
+75 minutos são 2 horas iniciadas. A R$ 10 por hora, R$ 20. Depois, rode o verificador: o caso 13.1 deve ficar OK.
 
-**Como conferir:** No exemplo comum: saída do carro 75 + lavagem da moto produzem parcial 40; após saída da moto 20, total 46 e ordem 1,3,2.
+## 6. Parte 2 — Interfaces: o contrato Cobravel (TODO 13.2 e 13.3)
 
-Antes de seguir, registre no roteiro: entrada usada, previsão, resultado observado e linha/método alterado. Não marque concluído apenas porque compila.
+### A ideia
 
-### TODO 13.6 — duas versões de imprimirRecibo
+A lavagem é uma cobrança, mas não é uma permanência: não tem minutos, não tem estado aberta e custa um valor fixo. Mesmo assim, o histórico e o recibo precisam tratar as duas do mesmo jeito. Eles fazem as mesmas quatro perguntas a qualquer cobrança: qual é o número, de qual placa, qual é a descrição e quanto custa.
 
-Abra `src/AplicacaoConsole.java`.
+### Conceitos
 
-Complete a forma simples com número, placa, descrição e valor. A forma com observação deve aproveitar a primeira e apresentar o texto adicional. As duas são consultas, sem registrar outra cobrança.
+**Interface.** É um tipo que declara um conjunto de métodos sem corpo. Ela diz o que um objeto sabe fazer. Não diz como ele faz e não guarda dados.
 
-**Como conferir:** Cheque 13.6 verifica as chamadas; confira visualmente os campos e repita menu 6 comparando histórico/total.
+**`implements`.** É a palavra que uma classe usa para se comprometer com uma interface. A classe passa a ser obrigada a fornecer o corpo de todos os métodos declarados.
 
-Antes de seguir, registre no roteiro: entrada usada, previsão, resultado observado e linha/método alterado. Não marque concluído apenas porque compila.
+**`@Override`.** É a anotação colocada acima de cada método que cumpre uma operação do contrato. Ela pede ao compilador que confira se o método existe mesmo na interface.
 
-### TODO 13.7 — mesmaPlaca e compararPlacas
+**Analogia.** A tomada da parede é uma interface: define o formato do encaixe. Qualquer aparelho com o plugue certo funciona, e a tomada não precisa saber qual é.
 
-Abra `src/AplicacaoConsole.java`.
+Regras que valem para toda interface:
 
-Complete as duas operações auxiliares com as perguntas adequadas: igualdade de conteúdo e sinal de ordem. Os argumentos desses auxiliares já são normalizados. Relacione com as buscas e com a ordenação discutidas nos slides.
+1. Não se cria objeto de interface com `new`.
+2. A classe que implementa precisa fornecer todos os métodos.
+3. Os métodos implementados precisam ser `public`.
+4. Uma classe pode implementar várias interfaces, mas estende uma única classe.
+5. Uma variável pode ter o tipo da interface e apontar para qualquer objeto que a implemente.
 
-**Como conferir:** Cheque 13.7 usa dois objetos String de mesmo conteúdo; acrescente ordem inversa e igualdade.
+Exemplo em outro assunto, para ver a sintaxe:
 
-Antes de seguir, registre no roteiro: entrada usada, previsão, resultado observado e linha/método alterado. Não marque concluído apenas porque compila.
+```java
+interface Imprimivel {
+    String textoParaImprimir();
+}
 
-## Acompanhamento durante a aula — 210 minutos com pausa
+class Etiqueta implements Imprimivel {
+    @Override public String textoParaImprimir() { return "Etiqueta de envio"; }
+}
 
-Use os blocos abaixo para acompanhar a explicação e as práticas; os TODOs ocupam os momentos de construção desses blocos, sem acrescentar outro trabalho de 210 minutos. As práticas e a investigação conservam o tempo previsto. Não tente digitar o projeto inteiro enquanto acompanha os slides.
+class Cupom implements Imprimivel {
+    @Override public String textoParaImprimir() { return "Cupom de desconto"; }
+}
+```
 
-| Intervalo | Min | Slides finais | Condução e ação verificável |
-|---|---:|---|---|
-| 0–20 | 20 | 1–7 | abertura 12, retomada/caso 6, previsão individual 2 |
-| 20–55 | 35 | 8–17 | wrappers e transição 20, prática 1 de 12, correção 3 |
-| 55–90 | 35 | 18–26 | limitação/contrato/UML 22, prática 2 de 10, retorno 3 |
-| 90–100 | 10 | 27 | pausa |
-| 100–135 | 35 | 28–36 | integração e demonstração 20, prática 3 de 12, correção 3 |
-| 135–165 | 30 | 37–43 | recibos/sobrecarga 17, prática 4 de 10, retorno 3 |
-| 165–185 | 20 | 44–49 | String/comparação 12, prática 5 de 6, retorno 2 |
-| 185–205 | 20 | 50–52 | laboratório inédito 18, devolutiva 2; modelo e limites como apoio |
-| 205–210 | 5 | 53–56 | síntese 2, commit 1, saída individual 2; fontes para consulta |
+`Etiqueta` e `Cupom` não são parentes. O que as une é o contrato `Imprimivel`.
 
+**Classe abstrata ou interface?**
 
-## Conferência antes da investigação
+| | Classe abstrata (`Veiculo`) | Interface (`Cobravel`) |
+|---|---|---|
+| Relação | `Carro` é um `Veiculo` | `Lavagem` sabe ser cobrada |
+| Guarda atributos | sim | não |
+| Tem construtor | sim | não |
+| Quantas por classe | uma | várias |
+| Quando usar | classes da mesma família, que compartilham dados e código | classes sem parentesco, que precisam ser usadas do mesmo jeito |
 
-Rode o verificador e identifique a primeira pendência. Execute também o menu com entradas correspondentes. Um cheque automático cobre apenas os casos nomeados, não todas as exigências da aula. As tarefas de compilação experimental, leitura visual de recibo, integração do menu, acesso entre pacotes e documentação precisam de evidências próprias quando indicadas. Releia os critérios antes de marcar a etapa concluída.
+### O que já vem pronto
 
-## Atividades e investigação — respostas do estudante
+O arquivo `Cobravel.java`, com as quatro operações. Abra e leia: são essas quatro assinaturas que as duas classes vão cumprir.
 
-As práticas seguintes usam o esqueleto acima. Complete a etapa relacionada no momento indicado; produza suas previsões, testes e justificativas. As tabelas permanecem vazias para registrar o que você verificou.
+### Sua tarefa
 
-## Práticas distribuídas
+**TODO 13.2.** Em `Permanencia.java` e em `Lavagem.java`, declare que a classe implementa `Cobravel`. Confira se os quatro métodos do contrato existem, são `public` e têm exatamente os mesmos nomes, parâmetros e tipos de retorno. Marque cada um com `@Override`.
 
-1. **Estados e dados ausentes — 12 min em dupla.** Desenhe entrada, saída válida e saída recusada; represente dados ainda desconhecidos sem os confundir com zero. Evolua a mesma visita e teste preservação de estado. Produto: desenho, implementação e tabela; critério: transição coerente e ausência explícita.
-2. **Contrato comum — 10 min em dupla.** Especifique as informações/operações necessárias ao relatório e faça os dois registros distintos cumpri-las. Em cópia isolada, experimente descumprir uma obrigação e interpretar a compilação. Produto: experimento e rastreamento; critério: compromisso compatível e uso sem escolher manualmente cada tipo.
-3. **Integração — 12 min em dupla.** Registre entradas, uma lavagem durante a visita e uma saída; tente lavagem após saída e saída com duração inválida. Produto: teste com listas, números e total antes/depois; critério: recusa sem mudança e cobrança independente sem duplicação.
-4. **Recibos — 10 min em dupla.** Crie duas formas de chamada com mesmo nome, uma simples e outra com observação. Experimente em arquivo separado uma mudança apenas no retorno. Produto: saídas e interpretação; critério: diferença nos parâmetros e apresentação sem lançar outra cobrança.
-5. **Comparações — 6 min individual.** Use textos de placa de objetos distintos, mesmo conteúdo e conteúdos diferentes; inclua normalização. Investigue também a ausência de dado numérico. Produto: tabela e justificativa; critério: identidade, conteúdo e ordem distinguidos, sem operação numérica sobre valor ausente.
+**TODO 13.3.** Em `Lavagem.java`, complete o construtor, guardando o número, o veículo e o preço fixo já declarado na classe, e complete `calcularValor`.
 
-## Tabelas para previsão e conferência
+Cuidados:
 
-| Passo planejado | Dados conhecidos e ausentes | Estado previsto | Estado observado | Justificativa |
+- `Lavagem` não estende `Veiculo` nem `Permanencia`.
+- A lavagem não altera minutos nem valor de nenhuma permanência.
+
+### Como conferir
+
+- Uma lavagem de número 3 para a moto `XYZ9K87` deve devolver número 3 e valor `20.0`.
+- Guarde uma permanência encerrada e uma lavagem em duas variáveis do tipo `Cobravel` e chame `getDescricao` e `calcularValor` nas duas. A mesma chamada deve devolver respostas diferentes.
+- **Experimento do compilador.** Em uma cópia do projeto, fora de `src`, apague um dos métodos de `Lavagem` e compile. Leia a mensagem de erro e anote o que ela está cobrando. Depois, devolva o método sem a palavra `public` e compile de novo. Restaure a versão correta.
+- No verificador, os casos 13.2 e 13.3 devem ficar OK.
+
+## 7. Parte 3 — A interface no gestor (TODO 13.4 e 13.5)
+
+### A ideia
+
+O gestor `Estacionamento` tem três listas. Cada uma responde a uma pergunta:
+
+| Lista | Tipo | Pergunta que responde |
+|---|---|---|
+| `veiculos` | lista de `Veiculo` | quais veículos conhecemos? |
+| `ativas` | lista de `Permanencia` | quem está no pátio agora? |
+| `cobrancas` | lista de `Cobravel` | o que já foi cobrado? |
+
+A lista `cobrancas` é declarada com o tipo da interface. Por isso aceita permanências e lavagens.
+
+### Conceito
+
+**Polimorfismo por interface.** Uma variável do tipo `Cobravel` pode apontar para uma `Permanencia` ou para uma `Lavagem`. Ao chamar `calcularValor`, cada objeto responde com a sua própria regra. Quem chama não precisa saber qual é a classe.
+
+### O que já vem pronto
+
+As três listas, o cadastro de veículos, `consultarVeiculo`, `consultarAtiva` (que localiza a visita aberta de uma placa) e as listagens.
+
+### Sua tarefa
+
+**TODO 13.4.** Complete os três métodos, um de cada vez:
+
+| Método | Quando recusa | O que faz quando aceita |
+|---|---|---|
+| `registrarEntrada` | placa não cadastrada, ou placa que já tem visita aberta: devolve `false` | cria uma visita aberta, guarda em `ativas`, avança a numeração e devolve `true` |
+| `registrarSaida` | sem visita aberta, ou minutos não positivos: devolve `null` | encerra a mesma visita, coloca em `cobrancas`, retira de `ativas` e devolve a visita |
+| `registrarLavagem` | sem visita aberta para a placa: devolve `null` | cria uma lavagem com o próximo número, guarda em `cobrancas`, avança a numeração e devolve a lavagem |
+
+**TODO 13.5.** Complete `totalizarCobrancas`: percorra a lista `cobrancas` e some o valor de cada item, sem perguntar se é permanência ou lavagem.
+
+Cuidados:
+
+- Uma recusa não altera nenhuma lista nem a numeração.
+- A saída não cria objeto novo e não consome número novo.
+- A lavagem não encerra a visita.
+- Uma visita nunca está em `ativas` e em `cobrancas` ao mesmo tempo.
+
+### Como conferir
+
+Em uma execução nova, faça a sequência abaixo e compare. Legenda: p1 é a permanência do carro, p2 a da moto e l3 a lavagem.
+
+| Passo | Operação | ativas | cobrancas | Total |
+|---|---|---|---|---|
+| 1 | entrada do carro | p1 | vazia | 0 |
+| 2 | entrada da moto | p1, p2 | vazia | 0 |
+| 3 | saída do carro, 75 minutos | p2 | p1 = 20 | 20 |
+| 4 | lavagem da moto | p2 | p1 = 20, l3 = 20 | 40 |
+| 5 | saída da moto, 20 minutos | vazia | p1 = 20, l3 = 20, p2 = 6 | 46 |
+
+No final, o histórico fica na ordem 1, 3, 2. A lista guarda a ordem em que as cobranças foram finalizadas, não a ordem dos números. Isso está correto.
+
+Faça também três tentativas que devem ser recusadas e confira que nada mudou: entrada duplicada da moto, saída com 0 minutos e lavagem depois da saída.
+
+Olhe além do total: confira a quantidade de itens em cada lista depois de cada passo. No verificador, o caso 13.4 e 13.5 deve ficar OK.
+
+## 8. Parte 4 — Sobrecarga de métodos (TODO 13.6)
+
+### Conceitos
+
+**Sobrecarga.** É ter, na mesma classe, dois ou mais métodos com o mesmo nome e listas de parâmetros diferentes. O compilador escolhe a versão pelos argumentos da chamada. Mudar só o tipo de retorno não cria sobrecarga.
+
+Exemplo em outro assunto:
+
+```java
+static int somar(int a, int b) { return a + b; }
+static int somar(int a, int b, int c) { return somar(a, b) + c; }
+```
+
+**Sobrecarga e sobrescrita não são a mesma coisa:**
+
+| | Sobrecarga | Sobrescrita |
+|---|---|---|
+| Onde ficam os métodos | na mesma classe | em classes diferentes |
+| Parâmetros | diferentes | iguais |
+| Quem escolhe a versão | o compilador, pelos argumentos | a execução, pelo objeto real |
+| Anotação | nenhuma | `@Override` |
+
+### Sua tarefa
+
+Em `AplicacaoConsole.java`, complete os dois métodos `imprimirRecibo`:
+
+- A versão de um parâmetro mostra, em uma linha, número, placa, descrição e valor com duas casas decimais.
+- A versão com observação reaproveita a primeira e mostra a observação em uma segunda linha.
+
+Cuidado: os dois métodos só consultam. Nenhum deles registra cobrança.
+
+### Como conferir
+
+- Use a opção 4 do menu para uma saída e a opção 5 para uma lavagem. Confira os campos do recibo.
+- Use a opção 6 duas vezes seguidas e depois a opção 7. O histórico e o total devem ser os mesmos nas duas vezes.
+- **Experimento do compilador.** Em uma cópia, crie uma terceira versão que muda só o tipo de retorno. Leia a mensagem de erro e anote.
+- No verificador, o caso 13.6 deve ficar OK.
+
+## 9. Parte 5 — Comparar textos (TODO 13.7)
+
+### Conceitos
+
+Há três formas de comparar `String`, e cada uma responde a uma pergunta diferente:
+
+| Forma | Pergunta | Devolve |
+|---|---|---|
+| `a == b` | as duas variáveis apontam para o mesmo objeto? | `boolean` |
+| `a.equals(b)` | os dois textos têm os mesmos caracteres? | `boolean` |
+| `a.compareTo(b)` | qual dos dois vem primeiro na ordem alfabética? | `int` |
+
+O resultado de `compareTo` é interpretado pelo sinal: negativo quer dizer que `a` vem antes, zero quer dizer que os textos são iguais e positivo quer dizer que `a` vem depois. Não espere exatamente 1 ou -1.
+
+Um texto lido do teclado é sempre um objeto novo. Por isso `==` pode dizer que uma placa cadastrada não existe.
+
+Antes de comparar um texto digitado, normalize: `trim()` retira os espaços das pontas e `toUpperCase()` passa para maiúsculas. O cadastro já guarda a placa normalizada.
+
+### Sua tarefa
+
+Em `AplicacaoConsole.java`, complete:
+
+- `mesmaPlaca`: responde se as duas placas têm o mesmo texto.
+- `compararPlacas`: devolve o número que indica a ordem entre as duas placas.
+
+Os argumentos desses dois métodos já chegam normalizados.
+
+### Como conferir
+
+Antes de executar, escreva sua previsão para cada teste:
+
+1. Duas `String` criadas com `new String` e o mesmo texto de placa: teste `==`, `equals` e `compareTo`.
+2. As placas `ABC1D23` e `XYZ9K87`: teste `equals` e o sinal de `compareTo` nos dois sentidos.
+3. O texto `abc1d23` com espaços nas pontas contra `ABC1D23`: teste `equals` antes e depois de normalizar.
+4. Cadastre um terceiro veículo, de placa `LMN2P34`, e confira a ordem da listagem de veículos.
+
+No verificador, o caso 13.7 deve ficar OK. Com isso, o resumo deve mostrar `OK=6 PENDENTE=0 REVER=0`.
+
+## 10. Laboratório — Quatro propostas de mudança para investigar
+
+Em dupla. Um colega revisou o projeto e sugeriu quatro mudanças. Todas compilam. Descubra o que cada uma quebra.
+
+| Proposta | O que investigar |
+|---|---|
+| Somar as visitas abertas no total, valendo zero | O histórico ainda distingue visita aberta de visita encerrada? |
+| Somar o preço da lavagem dentro da permanência | O que acontece com o recibo da lavagem e com duas lavagens? |
+| Registrar a cobrança de novo ao imprimir o recibo | O total continua igual ao imprimir duas vezes? |
+| Localizar a placa digitada com `==` | Uma placa cadastrada e digitada no teclado é encontrada? |
+
+**Cenário, em uma execução nova:**
+
+1. Registre a entrada do carro `ABC1D23` e da moto `XYZ9K87`.
+2. Registre duas lavagens da moto.
+3. Encerre o carro com 31 minutos.
+4. Encerre a moto com 121 minutos.
+5. Liste o histórico e imprima os recibos duas vezes.
+
+Antes de executar, calcule à mão quantas cobranças haverá, o valor de cada uma e o total.
+
+**O que entregar:** a previsão, o resultado obtido e, para cada proposta, um teste que passa no programa correto e falha no programa alterado.
+
+**Critério:** o parecer explica o defeito de cada proposta pelo estado das listas e dos objetos, e não só pelo total final.
+
+| Proposta | Meu teste | Resultado no programa correto | Resultado com a proposta | Conclusão |
 |---|---|---|---|---|
 | ___ | ___ | ___ | ___ | ___ |
 | ___ | ___ | ___ | ___ | ___ |
 | ___ | ___ | ___ | ___ | ___ |
 | ___ | ___ | ___ | ___ | ___ |
 
-| Operação / tentativa | Ativas antes/depois | Histórico antes/depois | Números | Total previsto/observado |
-|---|---|---|---|---|
-| ___ | ___ | ___ | ___ | ___ |
-| ___ | ___ | ___ | ___ | ___ |
-| ___ | ___ | ___ | ___ | ___ |
+## 11. Para fechar
 
-| Comparação escolhida | Pergunta que responde | Previsão | Observação | Risco de coincidência |
-|---|---|---|---|---|
-| ___ | ___ | ___ | ___ | ___ |
-| ___ | ___ | ___ | ___ | ___ |
-| ___ | ___ | ___ | ___ | ___ |
+- Registre esta etapa no seu repositório do Projeto 3, com uma mensagem como: interfaces, visitas abertas, lavagens e recibos.
+- Não envie `build/`, `target/` nem arquivos `.class`.
+- Preencha o roteiro de registro (`ROTEIRO_ALUNO_ENCONTRO_13.md`).
 
-## Laboratório — 18 minutos em dupla
+**O que ainda é frágil no programa, e será tratado depois:**
 
-Nova execução: entre com carro e moto; faça duas lavagens da moto; encerre o carro com 31 minutos e depois a moto com 121. Consulte recibos repetidamente. Preveja cada estado e o total antes de executar.
+- uma operação recusada não informa o motivo (aula 14);
+- digitar letras onde o menu espera número interrompe o programa (aula 14);
+- pedir o valor de uma visita aberta interrompe o programa (aula 14);
+- todos os arquivos estão no mesmo pacote (aula 15).
 
-Investigue propostas de revisão: somar abertas como zero; incluir o preço da lavagem também na permanência; registrar outra cobrança ao imprimir recibo; localizar placa digitada pela identidade do texto. Crie testes que distingam cada proposta do comportamento correto. Não basta ajustar o total final para coincidir com uma previsão.
+**Para estudar mais:**
 
-Entregue parecer, desenho de objetos/referências, previsões e testes. Critérios: registro de cada serviço uma vez; histórico só finalizado; valor preservado; recibo sem alteração de negócio; compromisso comum utilizado; comparação de texto adequada. Respostas e totais devem ser calculados por você.
-
-| Proposta examinada | Teste discriminante | Resultado esperado | Resultado observado | Decisão justificada |
-|---|---|---|---|---|
-| ___ | ___ | ___ | ___ | ___ |
-| ___ | ___ | ___ | ___ | ___ |
-| ___ | ___ | ___ | ___ | ___ |
-| ___ | ___ | ___ | ___ | ___ |
-
-## Fechamento
-
-Registre a evolução e seus testes em commit no repositório próprio. Declare limites: tratamento amplo de falhas e entradas numéricas inválidas virá em 14; organização e coleções por chave em 15. Alternativa sem computador: desenhos, previsões e parecer em papel. Não é necessário informar dados pessoais.
+- Interfaces: https://dev.java/learn/interfaces/
+- Boxing e unboxing: https://docs.oracle.com/javase/tutorial/java/data/autoboxing.html
+- Classe `String`: https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/lang/String.html
